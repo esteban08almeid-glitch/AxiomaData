@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg: #030712;
+            --card: rgba(17, 34, 64, 0.7);
+            --accent: #64ffda;
+            --accent-glow: rgba(100, 255, 218, 0.15);
+            --text: #e6f1ff;
+            --text-dim: #8892b0;
+            --border: rgba(100, 255, 218, 0.1);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; }
+
+        /* --- NAVIGATION --- */
+        header {
+            position: fixed; top: 0; width: 100%; height: 85px;
+            background: rgba(3, 7, 18, 0.9); backdrop-filter: blur(15px);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; z-index: 1000; border-bottom: 1px solid var(--border);
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; }
+
+        nav { display: flex; gap: 35px; height: 100%; align-items: center; }
+        .nav-item { position: relative; height: 100%; display: flex; align-items: center; cursor: pointer; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); letter-spacing: 1px; }
+        .nav-item:hover { color: var(--accent); }
+
+        .mega-menu {
+            position: absolute; top: 85px; left: 50%; transform: translateX(-50%) translateY(20px);
+            width: 95vw; max-width: 1200px; background: #0a192f; 
+            display: none; grid-template-columns: repeat(4, 1fr); gap: 30px;
+            padding: 50px; border-radius: 0 0 20px 20px; opacity: 0;
+            transition: var(--transition); border: 1px solid var(--border);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+
+        .nav-item:hover .mega-menu { display: grid; opacity: 1; transform: translateX(-50%) translateY(0); }
+        .menu-col h4 { color: var(--accent); font-size: 0.7rem; margin-bottom: 20px; text-transform: uppercase; border-bottom: 1px solid var(--accent-glow); padding-bottom: 8px; }
+        .menu-col a { display: block; color: var(--text-dim); text-decoration: none; margin-bottom: 12px; font-size: 0.85rem; transition: 0.3s; }
+        .menu-col a:hover { color: var(--accent); padding-left: 8px; }
+
+        /* --- SECTIONS --- */
+        section { padding: 120px 10%; }
+        
+        .hero {
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; background: radial-gradient(circle at center, #112240 0%, #030712 100%);
+        }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 25px; }
+        .hero p { color: var(--text-dim); max-width: 750px; font-size: 1.25rem; margin-bottom: 45px; }
+
+        /* --- SERVICIOS MODULARES --- */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
+        .card {
+            background: var(--card); border: 1px solid var(--border);
+            padding: 45px; border-radius: 24px; transition: var(--transition);
+            position: relative; overflow: hidden;
+        }
+        .card:hover { transform: translateY(-12px); border-color: var(--accent); box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
+        .card h3 { color: var(--accent); margin-bottom: 20px; font-size: 1.5rem; }
+        .card p { color: var(--text-dim); line-height: 1.7; font-size: 0.95rem; }
+
+        /* --- SIMULADOR DE DIAGNÓSTICO --- */
+        .diag-box {
+            background: #0a192f; border: 1px solid var(--accent);
+            border-radius: 30px; padding: 60px; margin-top: 50px;
+            box-shadow: 0 0 50px rgba(100, 255, 218, 0.05);
+        }
+        .diag-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; }
+        .input-group { margin-bottom: 35px; }
+        .input-group label { display: block; margin-bottom: 15px; color: var(--text-dim); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; }
+        input[type=range] { width: 100%; accent-color: var(--accent); cursor: pointer; }
+        .val-label { text-align: right; color: var(--accent); font-weight: 800; font-size: 1.4rem; font-family: 'Space Mono', monospace; }
+
+        .res-display { background: rgba(0,0,0,0.4); padding: 40px; border-radius: 20px; border-left: 5px solid var(--accent); }
+        .res-num { font-size: 3rem; font-weight: 900; color: var(--text); margin: 15px 0; }
+
+        /* --- CONTENT BLOCKS (TEXTOS DE CAPTURAS) --- */
+        .info-section { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .badge { color: var(--accent); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; display: block; margin-bottom: 15px; }
+        .quote { border-left: 3px solid var(--accent); padding-left: 30px; font-style: italic; color: var(--accent); font-size: 1.3rem; margin: 30px 0; }
+
+        .btn {
+            background: transparent; border: 1px solid var(--accent); color: var(--accent);
+            padding: 18px 45px; border-radius: 10px; cursor: pointer; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
+        }
+        .btn:hover { background: var(--accent); color: var(--bg); box-shadow: 0 0 25px var(--accent-glow); }
+
+        @media (max-width: 900px) { .info-section, .diag-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Axioma</div>
+        <nav>
+            <div class="nav-item">IDENTIDAD
+                <div class="mega-menu">
+                    <div class="menu-col">
+                        <h4>Firma</h4>
+                        <a href="#about">Misión</a>
+                        <a href="#about">Visión</a>
+                        <a href="#about">Compromiso</a>
+                    </div>
+                    <div class="menu-col">
+                        <h4>Filosofía</h4>
+                        <a href="#">Modelo Completo</a>
+                        <a href="#">Evidencia Sólida</a>
+                        <a href="#">Análisis Predictivo</a>
+                    </div>
+                    <div class="menu-col">
+                        <h4>Diferencial</h4>
+                        <a href="#">Sin Sesgos de Supervivencia</a>
+                        <a href="#">Rentabilidad Data-Driven</a>
+                        <a href="#">Impacto Positivo</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-item">SERVICIOS
+                <div class="mega-menu">
+                    <div class="menu-col">
+                        <h4>Módulos</h4>
+                        <a href="#servicios">Maturity Assessment</a>
+                        <a href="#servicios">BI Dashboards</a>
+                        <a href="#servicios">Data Fluency Training</a>
+                    </div>
+                    <div class="menu-col">
+                        <h4>Enfoque</h4>
+                        <a href="#">Accesibilidad Modular</a>
+                        <a href="#">Transición a Fluidez</a>
+                        <a href="#">Roadmap de Decisión</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-item">INDUSTRIAS</div>
+        </nav>
+        <button class="btn" style="padding: 10px 25px; font-size: 0.7rem;">Solicitar Auditoría</button>
+    </header>
+
+    <section class="hero">
+        <span class="badge">Consultoría de Datos de Alto Impacto</span>
+        <h1>Del dato al principio de decisión</h1>
+        <p>No vendemos visualizaciones aisladas. Construimos la infraestructura crítica para que su empresa deje de adivinar y comience a ejecutar con evidencia sólida.</p>
+        <button class="btn" onclick="document.getElementById('diagnostico').scrollIntoView()">Diagnosticar Mi Negocio</button>
+    </section>
+
+    <section id="servicios">
+        <h2 style="text-align:center; font-size: 2.5rem; margin-bottom: 60px;">Arquitectura Modular</h2>
+        <div class="services-grid">
+            <div class="card">
+                <h3>Maturity Assessment</h3>
+                <p>Evaluamos el estado actual de su ecosistema de datos. No se puede construir sobre arena; diagnosticamos su capacidad de respuesta analítica real.</p>
+            </div>
+            <div class="card">
+                <h3>BI Dashboards</h3>
+                <p>Convertimos el ruido informativo en señales claras. Dashboards diseñados para que el CEO visualice la salud financiera y operativa en tiempo real.</p>
+            </div>
+            <div class="card">
+                <h3>Data Fluency</h3>
+                <p>La tecnología es inútil sin cultura. Capacitamos a su equipo para que la fluidez en datos sea el lenguaje nativo de cada departamento.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="diagnostico">
+        <div class="diag-box">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h2 style="color: var(--accent); font-size: 2.2rem;">Calculadora de Ineficiencia</h2>
+                <p style="color: var(--text-dim); margin-top: 10px;">Descubra el costo de oportunidad de operar bajo un modelo de datos incompleto.</p>
+            </div>
+            <div class="diag-grid">
+                <div class="inputs">
+                    <div class="input-group">
+                        <label>Facturación Mensual Estimada (USD)</label>
+                        <input type="range" id="f-rev" min="10000" max="1000000" step="10000" value="150000">
+                        <div class="val-label">$<span id="v-rev">150,000</span></div>
+                    </div>
+                    <div class="input-group">
+                        <label>Margen de Incertidumbre en Decisiones (%)</label>
+                        <input type="range" id="f-err" min="5" max="30" step="1" value="12">
+                        <div class="val-label"><span id="v-err">12</span>%</div>
+                    </div>
+                </div>
+                <div class="results">
+                    <div class="res-display">
+                        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-dim); letter-spacing: 2px;">Pérdida Anual Proyectada por Ceguera de Datos</span>
+                        <div class="res-num" id="v-leak">$216,000</div>
+                        <p style="color: var(--text-dim); font-size: 0.85rem;">Este capital podría estarse perdiendo en procesos ineficientes y decisiones basadas en sesgos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="info-section">
+            <div>
+                <span class="badge">Sobre Axioma</span>
+                <h2>Nuestra Filosofía</h2>
+                <div class="quote">"No vendemos dashboards: construimos decisiones basadas en evidencia."</div>
+                <p style="color: var(--text-dim); margin-bottom: 20px;">Ayudamos a empresas que saben que necesitan analítica pero no tienen el equipo, el roadmap o el presupuesto para los compromisos costosos de las grandes firmas.</p>
+                <p style="color: var(--text-dim);">Nuestro enfoque se centra en brindar soluciones modulares que ayudan a tomar decisiones informadas y fundamentadas.</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.02); padding: 50px; border-radius: 20px;">
+                <h4 style="color: var(--accent); margin-bottom: 15px;">Misión y Visión</h4>
+                <p style="margin-bottom: 20px; font-size: 0.95rem;"><strong>Misión:</strong> Especialistas en análisis financiero y predictivo, brindando soluciones accesibles que generen impacto positivo.</p>
+                <p style="font-size: 0.95rem;"><strong>Visión:</strong> Ser líderes reconocidos por la excelencia y la integridad en el tratamiento de datos empresariales.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 60px; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 0.8rem;">
+        AXIOMA DATA SOLUTIONS | DEL DATO AL PRINCIPIO DE DECISIÓN | 2026
+    </footer>
+
+    <script>
+        const revIn = document.getElementById('f-rev');
+        const errIn = document.getElementById('f-err');
+        
+        function runCalc() {
+            const r = parseInt(revIn.value);
+            const e = parseInt(errIn.value) / 100;
+            const leak = r * e * 12; // Pérdida anual
+
+            document.getElementById('v-rev').innerText = r.toLocaleString();
+            document.getElementById('v-err').innerText = (e * 100).toFixed(0);
+            document.getElementById('v-leak').innerText = '$' + leak.toLocaleString();
+        }
+
+        revIn.addEventListener('input', runCalc);
+        errIn.addEventListener('input', runCalc);
+        runCalc();
+    </script>
+</body>
+</html>
