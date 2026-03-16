@@ -3,241 +3,561 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axioma | Data Intelligence & Inteligencia Financiera</title>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("x0fuBfC1K-Jv_sSdG");
+       })();
+    </script>
+
     <style>
         :root {
             --bg: #030712;
-            --card: rgba(17, 34, 64, 0.7);
             --accent: #64ffda;
             --accent-glow: rgba(100, 255, 218, 0.15);
             --text: #e6f1ff;
             --text-dim: #8892b0;
-            --border: rgba(100, 255, 218, 0.1);
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --border: rgba(100, 255, 218, 0.15);
+            --card-bg: rgba(17, 34, 64, 0.3);
+            --menu-bg: rgba(3, 7, 18, 0.98);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, sans-serif; }
+        body { background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; line-height: 1.6; }
 
-        /* --- NAVIGATION --- */
+        /* ANIMACIONES GLOBALES */
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px var(--accent-glow); }
+            50% { box-shadow: 0 0 25px rgba(100, 255, 218, 0.3); }
+            100% { box-shadow: 0 0 10px var(--accent-glow); }
+        }
+
+        .fade-up { opacity: 0; transform: translateY(40px); transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* HEADER & MEGA MENU */
         header {
             position: fixed; top: 0; width: 100%; height: 85px;
-            background: rgba(3, 7, 18, 0.9); backdrop-filter: blur(15px);
+            background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(16px);
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 5%; z-index: 1000; border-bottom: 1px solid var(--border);
+            transition: background 0.3s ease;
         }
 
-        .logo { font-size: 1.5rem; font-weight: 900; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; }
-
-        nav { display: flex; gap: 35px; height: 100%; align-items: center; }
-        .nav-item { position: relative; height: 100%; display: flex; align-items: center; cursor: pointer; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); letter-spacing: 1px; }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--accent); letter-spacing: 4px; text-transform: uppercase; }
+        
+        .nav-container { display: flex; align-items: center; height: 100%; }
+        .nav-links { display: flex; list-style: none; height: 100%; align-items: center; margin-right: 20px; }
+        
+        .nav-item { 
+            position: relative; height: 100%; display: flex; align-items: center; 
+            padding: 0 18px; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); 
+            letter-spacing: 1px; cursor: pointer; transition: 0.3s;
+        }
         .nav-item:hover { color: var(--accent); }
 
         .mega-menu {
-            position: absolute; top: 85px; left: 50%; transform: translateX(-50%) translateY(20px);
-            width: 95vw; max-width: 1200px; background: #0a192f; 
-            display: none; grid-template-columns: repeat(4, 1fr); gap: 30px;
-            padding: 50px; border-radius: 0 0 20px 20px; opacity: 0;
-            transition: var(--transition); border: 1px solid var(--border);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            position: fixed; top: 85px; left: 0; width: 100%;
+            background: var(--menu-bg); border-bottom: 1px solid var(--border);
+            padding: 50px 10%; display: flex; gap: 80px;
+            opacity: 0; visibility: hidden; transform: translateY(-10px);
+            transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
+        .nav-item:hover .mega-menu { opacity: 1; visibility: visible; transform: translateY(0); }
 
-        .nav-item:hover .mega-menu { display: grid; opacity: 1; transform: translateX(-50%) translateY(0); }
-        .menu-col h4 { color: var(--accent); font-size: 0.7rem; margin-bottom: 20px; text-transform: uppercase; border-bottom: 1px solid var(--accent-glow); padding-bottom: 8px; }
-        .menu-col a { display: block; color: var(--text-dim); text-decoration: none; margin-bottom: 12px; font-size: 0.85rem; transition: 0.3s; }
-        .menu-col a:hover { color: var(--accent); padding-left: 8px; }
+        .mega-col h4 { color: var(--text); font-size: 0.85rem; text-transform: uppercase; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); letter-spacing: 1.5px;}
+        .mega-col a { display: block; color: var(--text-dim); text-decoration: none; margin-bottom: 15px; font-size: 0.85rem; transition: 0.2s; }
+        .mega-col a:hover { color: var(--accent); padding-left: 5px; }
 
-        /* --- SECTIONS --- */
-        section { padding: 120px 10%; }
+        .header-actions { display: flex; align-items: center; gap: 15px; border-left: 1px solid var(--border); padding-left: 20px; height: 40px;}
+        .lang-btn { font-size: 0.8rem; font-weight: 700; color: var(--text-dim); cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 5px; }
+        .lang-btn.active { color: var(--accent); }
+        .lang-btn:hover { color: var(--text); }
+
+        /* SECCIONES */
+        section { padding: 120px 10%; border-bottom: 1px solid var(--border); position: relative; }
         
-        .hero {
-            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; background: radial-gradient(circle at center, #112240 0%, #030712 100%);
+        .hero { 
+            height: 100vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: flex-start; text-align: left; 
+            background: linear-gradient(-45deg, #030712, #0a192f, #030712, #060d1d);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+            border: none;
         }
-        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 25px; }
-        .hero p { color: var(--text-dim); max-width: 750px; font-size: 1.25rem; margin-bottom: 45px; }
 
-        /* --- SERVICIOS MODULARES --- */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
-        .card {
-            background: var(--card); border: 1px solid var(--border);
-            padding: 45px; border-radius: 24px; transition: var(--transition);
+        .metrics-bar {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            background: rgba(6, 13, 29, 0.9); border-bottom: 1px solid var(--border); padding: 60px 10%; text-align: center;
+        }
+
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
+        .card { background: var(--card-bg); padding: 40px; border-radius: 10px; border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .card:hover { border-color: var(--accent); transform: translateY(-10px); box-shadow: 0 15px 35px rgba(100, 255, 218, 0.08); background: rgba(17, 34, 64, 0.6); }
+        
+        .diag-box { 
+            background: #0a192f; border: 1px solid var(--accent); 
+            border-radius: 15px; padding: 60px; margin: 20px 0;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+
+        .btn { 
+            border: 1px solid var(--accent); color: var(--accent); 
+            background: transparent; padding: 15px 35px; border-radius: 4px; 
+            cursor: pointer; font-weight: 700; text-transform: uppercase; 
+            letter-spacing: 1px; transition: all 0.3s ease; font-size: 0.8rem;
             position: relative; overflow: hidden;
         }
-        .card:hover { transform: translateY(-12px); border-color: var(--accent); box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
-        .card h3 { color: var(--accent); margin-bottom: 20px; font-size: 1.5rem; }
-        .card p { color: var(--text-dim); line-height: 1.7; font-size: 0.95rem; }
+        .btn:hover { background: var(--accent); color: var(--bg); box-shadow: 0 0 15px var(--accent-glow); }
+        .btn-primary { background: var(--accent); color: var(--bg); animation: pulseGlow 3s infinite; }
 
-        /* --- SIMULADOR DE DIAGNÓSTICO --- */
-        .diag-box {
-            background: #0a192f; border: 1px solid var(--accent);
-            border-radius: 30px; padding: 60px; margin-top: 50px;
-            box-shadow: 0 0 50px rgba(100, 255, 218, 0.05);
+        .option-btn {
+            display: block; width: 100%; padding: 18px 25px; margin-bottom: 12px;
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+            border-radius: 8px; color: var(--text); text-align: left; cursor: pointer; transition: 0.2s;
         }
-        .diag-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; }
-        .input-group { margin-bottom: 35px; }
-        .input-group label { display: block; margin-bottom: 15px; color: var(--text-dim); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; }
-        input[type=range] { width: 100%; accent-color: var(--accent); cursor: pointer; }
-        .val-label { text-align: right; color: var(--accent); font-weight: 800; font-size: 1.4rem; font-family: 'Space Mono', monospace; }
+        .option-btn:hover { background: rgba(100, 255, 218, 0.05); border-color: var(--accent); transform: translateX(5px); }
 
-        .res-display { background: rgba(0,0,0,0.4); padding: 40px; border-radius: 20px; border-left: 5px solid var(--accent); }
-        .res-num { font-size: 3rem; font-weight: 900; color: var(--text); margin: 15px 0; }
-
-        /* --- CONTENT BLOCKS (TEXTOS DE CAPTURAS) --- */
-        .info-section { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-        .badge { color: var(--accent); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; display: block; margin-bottom: 15px; }
-        .quote { border-left: 3px solid var(--accent); padding-left: 30px; font-style: italic; color: var(--accent); font-size: 1.3rem; margin: 30px 0; }
-
-        .btn {
-            background: transparent; border: 1px solid var(--accent); color: var(--accent);
-            padding: 18px 45px; border-radius: 10px; cursor: pointer; font-weight: 800;
-            text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
+        input[type="email"] {
+            width: 100%; padding: 15px; background: rgba(0,0,0,0.3); 
+            border: 1px solid var(--border); border-radius: 4px; color: var(--text); 
+            margin-bottom: 15px; outline: none; transition: 0.3s;
         }
-        .btn:hover { background: var(--accent); color: var(--bg); box-shadow: 0 0 25px var(--accent-glow); }
+        input[type="email"]:focus { border-color: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
 
-        @media (max-width: 900px) { .info-section, .diag-grid { grid-template-columns: 1fr; } }
+        footer { background: #010308; padding: 80px 10% 40px; border-top: 1px solid var(--border); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; }
+        .footer-col h4 { color: var(--text); font-size: 0.85rem; margin-bottom: 25px; letter-spacing: 1px; }
+        .footer-col a { display: block; color: var(--text-dim); text-decoration: none; margin-bottom: 12px; font-size: 0.8rem; transition: 0.2s; }
+        .footer-col a:hover { color: var(--accent); padding-left: 3px; }
+
+        @media (max-width: 900px) {
+            .nav-links { display: none; } 
+            .hero h1 { font-size: 2.8rem !important; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
     </style>
 </head>
 <body>
 
-    <header>
+    <header id="main-header">
         <div class="logo">Axioma</div>
-        <nav>
-            <div class="nav-item">IDENTIDAD
-                <div class="mega-menu">
-                    <div class="menu-col">
-                        <h4>Firma</h4>
-                        <a href="#about">Misión</a>
-                        <a href="#about">Visión</a>
-                        <a href="#about">Compromiso</a>
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li class="nav-item">
+                    <span data-key="nav-who">QUIÉNES SOMOS</span>
+                    <div class="mega-menu">
+                        <div class="mega-col">
+                            <h4 data-key="mm-identidad">Identidad Corporativa</h4>
+                            <a href="#identity" data-key="mm-integridad">Integridad Estadística</a>
+                            <a href="#identity" data-key="mm-vision">Arquitectura Analítica</a>
+                        </div>
+                        <div class="mega-col">
+                            <h4 data-key="mm-liderazgo">Estructura</h4>
+                            <a href="#contact" data-key="mm-equipo">Liderazgo Estratégico</a>
+                            <a href="#contact" data-key="mm-alianzas">Ecosistema de Datos</a>
+                        </div>
                     </div>
-                    <div class="menu-col">
-                        <h4>Filosofía</h4>
-                        <a href="#">Modelo Completo</a>
-                        <a href="#">Evidencia Sólida</a>
-                        <a href="#">Análisis Predictivo</a>
+                </li>
+                <li class="nav-item">
+                    <span data-key="nav-what">QUÉ HACEMOS</span>
+                    <div class="mega-menu">
+                        <div class="mega-col">
+                            <h4 data-key="mm-soluciones">Data Intelligence Core</h4>
+                            <a href="#services" data-key="serv-1-t">Auditoría de Sistemas</a>
+                            <a href="#services" data-key="serv-2-t">Gobierno de Datos</a>
+                            <a href="#services" data-key="serv-3-t">Modelado Financiero</a>
+                        </div>
+                        <div class="mega-col">
+                            <h4 data-key="mm-sectores">Sectores de Enfoque</h4>
+                            <a href="#" data-key="mm-sec-vc">Venture Capital & PE</a>
+                            <a href="#" data-key="mm-sec-fin">Servicios Financieros</a>
+                            <a href="#" data-key="mm-sec-retail">Retail & E-commerce</a>
+                        </div>
                     </div>
-                    <div class="menu-col">
-                        <h4>Diferencial</h4>
-                        <a href="#">Sin Sesgos de Supervivencia</a>
-                        <a href="#">Rentabilidad Data-Driven</a>
-                        <a href="#">Impacto Positivo</a>
+                </li>
+                <li class="nav-item">
+                    <span data-key="nav-insights">MADUREZ ANALÍTICA</span>
+                    <div class="mega-menu">
+                        <div class="mega-col">
+                            <h4 data-key="mm-herramientas">Laboratorio de Diagnóstico</h4>
+                            <a href="#diag" data-key="btn-diag">Fricción Operativa vs Capital</a>
+                            <a href="#maturity" data-key="quiz-title">Test de Madurez Analítica</a>
+                        </div>
                     </div>
-                </div>
+                </li>
+                <li class="nav-item">
+                    <span data-key="nav-contact" onclick="document.getElementById('contact').scrollIntoView()">CONTACTO</span>
+                </li>
+            </ul>
+            <div class="header-actions">
+                <span id="btn-es" class="lang-btn active" onclick="setLang('es')">🇲🇽 ES</span>
+                <span id="btn-en" class="lang-btn" onclick="setLang('en')">🇺🇸 EN</span>
             </div>
-            <div class="nav-item">SERVICIOS
-                <div class="mega-menu">
-                    <div class="menu-col">
-                        <h4>Módulos</h4>
-                        <a href="#servicios">Maturity Assessment</a>
-                        <a href="#servicios">BI Dashboards</a>
-                        <a href="#servicios">Data Fluency Training</a>
-                    </div>
-                    <div class="menu-col">
-                        <h4>Enfoque</h4>
-                        <a href="#">Accesibilidad Modular</a>
-                        <a href="#">Transición a Fluidez</a>
-                        <a href="#">Roadmap de Decisión</a>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-item">INDUSTRIAS</div>
-        </nav>
-        <button class="btn" style="padding: 10px 25px; font-size: 0.7rem;">Solicitar Auditoría</button>
+        </div>
     </header>
 
     <section class="hero">
-        <span class="badge">Consultoría de Datos de Alto Impacto</span>
-        <h1>Del dato al principio de decisión</h1>
-        <p>No vendemos visualizaciones aisladas. Construimos la infraestructura crítica para que su empresa deje de adivinar y comience a ejecutar con evidencia sólida.</p>
-        <button class="btn" onclick="document.getElementById('diagnostico').scrollIntoView()">Diagnosticar Mi Negocio</button>
+        <h1 class="fade-up" data-key="hero-title" style="font-size: 4rem; margin-bottom: 25px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; max-width: 900px;">Data Intelligence y Arquitectura Financiera.</h1>
+        <p class="fade-up delay-1" data-key="hero-p" style="color:var(--text-dim); max-width:700px; font-size:1.15rem; margin-bottom: 40px;">Elevamos la madurez analítica de su organización. Transformamos ecosistemas de datos en motores de inteligencia financiera para una toma de decisiones con certeza matemática.</p>
+        <div class="fade-up delay-2" style="display: flex; gap: 20px;">
+            <button class="btn btn-primary" onclick="document.getElementById('maturity').scrollIntoView()" data-key="btn-diag-hero">Evaluar Madurez Analítica</button>
+            <button class="btn" onclick="document.getElementById('services').scrollIntoView()" data-key="nav-what">Qué Hacemos</button>
+        </div>
     </section>
 
-    <section id="servicios">
-        <h2 style="text-align:center; font-size: 2.5rem; margin-bottom: 60px;">Arquitectura Modular</h2>
-        <div class="services-grid">
-            <div class="card">
-                <h3>Maturity Assessment</h3>
-                <p>Evaluamos el estado actual de su ecosistema de datos. No se puede construir sobre arena; diagnosticamos su capacidad de respuesta analítica real.</p>
+    <div class="metrics-bar fade-up" id="metrics-section">
+        <div>
+            <div style="font-size: 3.5rem; font-weight: 900; color: var(--accent); margin-bottom: 10px;"><span class="counter" data-target="100">0</span>%</div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-dim); letter-spacing: 2px;" data-key="metric-1">Trazabilidad de Datos</div>
+        </div>
+        <div>
+            <div style="font-size: 3.5rem; font-weight: 900; color: var(--accent); margin-bottom: 10px;">0</div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-dim); letter-spacing: 2px;" data-key="metric-2">Puntos Ciegos Operativos</div>
+        </div>
+        <div>
+            <div style="font-size: 3.5rem; font-weight: 900; color: var(--accent); margin-bottom: 10px;"><span class="counter" data-target="360">0</span>&deg;</div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-dim); letter-spacing: 2px;" data-key="metric-3">Visibilidad Financiera</div>
+        </div>
+    </div>
+
+    <section id="identity">
+        <div class="fade-up" style="max-width: 800px; margin-bottom: 60px;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;" data-key="nav-who">QUIÉNES SOMOS</h2>
+            <p style="color: var(--text-dim); font-size: 1.1rem;" data-key="footer-desc">Aceleramos su transición hacia la madurez analítica. Implementamos sistemas de inteligencia financiera que eliminan la incertidumbre operativa.</p>
+        </div>
+        <div class="grid-3">
+            <div class="card fade-up delay-1">
+                <h3 style="color:var(--accent); margin-bottom:15px;" data-key="mision-t">Integridad Estadística</h3>
+                <p data-key="mision-p" style="font-size: 0.9rem; color: var(--text-dim);">Gobernamos la captura y limpieza de datos para asegurar que cada modelo financiero y operativo esté respaldado por una realidad métrica absoluta.</p>
             </div>
-            <div class="card">
-                <h3>BI Dashboards</h3>
-                <p>Convertimos el ruido informativo en señales claras. Dashboards diseñados para que el CEO visualice la salud financiera y operativa en tiempo real.</p>
+            <div class="card fade-up delay-2">
+                <h3 style="color:var(--accent); margin-bottom:15px;" data-key="vision-t">Arquitectura Analítica</h3>
+                <p data-key="vision-p" style="font-size: 0.9rem; color: var(--text-dim);">Estandarizamos sus flujos de información en un ecosistema unificado, dotando a la alta dirección de una única fuente de verdad institucional.</p>
             </div>
-            <div class="card">
-                <h3>Data Fluency</h3>
-                <p>La tecnología es inútil sin cultura. Capacitamos a su equipo para que la fluidez en datos sea el lenguaje nativo de cada departamento.</p>
+            <div class="card fade-up delay-3">
+                <h3 style="color:var(--accent); margin-bottom:15px;" data-key="anth-t">Inteligencia Financiera</h3>
+                <p data-key="anth-p" style="font-size: 0.9rem; color: var(--text-dim);">Aplicamos modelado avanzado sobre sus datos históricos para identificar fugas de capital y proyectar la asignación de recursos más rentable.</p>
             </div>
         </div>
     </section>
 
-    <section id="diagnostico">
-        <div class="diag-box">
-            <div style="text-align: center; margin-bottom: 50px;">
-                <h2 style="color: var(--accent); font-size: 2.2rem;">Calculadora de Ineficiencia</h2>
-                <p style="color: var(--text-dim); margin-top: 10px;">Descubra el costo de oportunidad de operar bajo un modelo de datos incompleto.</p>
+    <section id="services" style="background: rgba(10, 25, 47, 0.3);">
+        <h2 class="fade-up" style="font-size: 2.5rem; margin-bottom: 60px;" data-key="nav-what">DATA INTELLIGENCE CORE</h2>
+        <div class="grid-3">
+            <div class="card fade-up delay-1" style="background: transparent; border-color: transparent; border-left: 2px solid var(--accent); border-radius: 0; padding-left: 30px;">
+                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-1-t">Auditoría de Sistemas</h3>
+                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-1-p">Diagnóstico técnico de su infraestructura. Localizamos cuellos de botella operativos y latencia en los datos que distorsionan su visibilidad financiera.</p>
             </div>
-            <div class="diag-grid">
+            <div class="card fade-up delay-2" style="background: transparent; border-color: transparent; border-left: 2px solid var(--accent); border-radius: 0; padding-left: 30px;">
+                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-2-t">Gobierno de Datos</h3>
+                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-2-p">Diseño de protocolos de estructuración y calidad. Centralizamos la información departamental para transicionar hacia un nivel de madurez analítica avanzado.</p>
+            </div>
+            <div class="card fade-up delay-3" style="background: transparent; border-color: transparent; border-left: 2px solid var(--accent); border-radius: 0; padding-left: 30px;">
+                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-3-t">Modelado Financiero</h3>
+                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-3-p">Construcción de algoritmos predictivos. Optimizamos la rentabilidad simulando escenarios de mercado basados estrictamente en la evidencia de sus datos.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="diag">
+        <h2 class="fade-up" style="font-size: 2.5rem; margin-bottom: 20px; text-align: center;" data-key="nav-insights">MADUREZ ANALÍTICA</h2>
+        <p class="fade-up" style="text-align: center; color: var(--text-dim); margin-bottom: 50px;" data-key="lab-desc">Auditoría en tiempo real sobre el impacto financiero de su infraestructura de datos.</p>
+        
+        <div class="diag-box fade-up">
+            <h3 data-key="diag-title" style="color:var(--accent); margin-bottom:40px; text-transform: uppercase; font-size: 1rem; letter-spacing: 1px;">Impacto de la Fricción Operativa</h3>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:60px; align-items: center;">
                 <div class="inputs">
-                    <div class="input-group">
-                        <label>Facturación Mensual Estimada (USD)</label>
-                        <input type="range" id="f-rev" min="10000" max="1000000" step="10000" value="150000">
-                        <div class="val-label">$<span id="v-rev">150,000</span></div>
+                    <div style="margin-bottom:30px">
+                        <label data-key="label-rev" style="font-size:0.75rem; text-transform:uppercase; color: var(--text-dim); letter-spacing: 1px;">Facturación Anual (USD)</label>
+                        <input type="range" id="f-rev" min="100000" max="5000000" step="100000" value="1000000" style="width:100%; margin: 15px 0; accent-color: var(--accent);">
+                        <div style="color:var(--text); font-weight:800; font-size:2rem;">$<span id="v-rev">1,000,000</span></div>
                     </div>
-                    <div class="input-group">
-                        <label>Margen de Incertidumbre en Decisiones (%)</label>
-                        <input type="range" id="f-err" min="5" max="30" step="1" value="12">
-                        <div class="val-label"><span id="v-err">12</span>%</div>
+                    <div>
+                        <label data-key="label-err" style="font-size:0.75rem; text-transform:uppercase; color: var(--text-dim); letter-spacing: 1px;">Fricción en Datos / Latencia (%)</label>
+                        <input type="range" id="f-err" min="5" max="40" step="1" value="15" style="width:100%; margin: 15px 0; accent-color: var(--accent);">
+                        <div style="color:var(--text); font-weight:800; font-size:2rem;"><span id="v-err">15</span>%</div>
                     </div>
                 </div>
-                <div class="results">
-                    <div class="res-display">
-                        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-dim); letter-spacing: 2px;">Pérdida Anual Proyectada por Ceguera de Datos</span>
-                        <div class="res-num" id="v-leak">$216,000</div>
-                        <p style="color: var(--text-dim); font-size: 0.85rem;">Este capital podría estarse perdiendo en procesos ineficientes y decisiones basadas en sesgos.</p>
-                    </div>
+                <div style="background: rgba(0,0,0,0.5); padding: 50px; border-radius: 10px; border-top: 3px solid var(--accent); text-align: center;">
+                    <span data-key="res-label" style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; letter-spacing: 1px;">Pérdida por Baja Madurez Analítica</span>
+                    <div id="v-leak" style="font-size:3.5rem; font-weight:900; margin:15px 0; color:var(--accent);">$150,000</div>
+                    <p data-key="res-p" style="font-size:0.85rem; color:var(--text-dim)">Capital recuperable migrando hacia sistemas centralizados de inteligencia financiera.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about">
-        <div class="info-section">
-            <div>
-                <span class="badge">Sobre Axioma</span>
-                <h2>Nuestra Filosofía</h2>
-                <div class="quote">"No vendemos dashboards: construimos decisiones basadas en evidencia."</div>
-                <p style="color: var(--text-dim); margin-bottom: 20px;">Ayudamos a empresas que saben que necesitan analítica pero no tienen el equipo, el roadmap o el presupuesto para los compromisos costosos de las grandes firmas.</p>
-                <p style="color: var(--text-dim);">Nuestro enfoque se centra en brindar soluciones modulares que ayudan a tomar decisiones informadas y fundamentadas.</p>
+    <section id="maturity" style="padding-top: 0; border: none;">
+        <div class="diag-box fade-up" style="max-width: 900px; margin: auto; background: transparent; border: 1px dashed var(--border);">
+            <div id="quiz-container">
+                <h3 data-key="quiz-title" style="margin-bottom:30px; text-align: center; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; font-size: 1rem;">Test de Madurez Analítica</h3>
+                <div id="question-box" style="max-width: 700px; margin: 0 auto;"></div>
             </div>
-            <div style="background: rgba(255,255,255,0.02); padding: 50px; border-radius: 20px;">
-                <h4 style="color: var(--accent); margin-bottom: 15px;">Misión y Visión</h4>
-                <p style="margin-bottom: 20px; font-size: 0.95rem;"><strong>Misión:</strong> Especialistas en análisis financiero y predictivo, brindando soluciones accesibles que generen impacto positivo.</p>
-                <p style="font-size: 0.95rem;"><strong>Visión:</strong> Ser líderes reconocidos por la excelencia y la integridad en el tratamiento de datos empresariales.</p>
+            <div id="quiz-result" style="display:none; text-align:center;">
+                <h2 id="level-name" style="color:var(--accent); font-size:2rem; margin-bottom:20px;"></h2>
+                <div style="background: rgba(255,255,255,0.02); padding:30px; border-radius:8px; margin-bottom:25px; text-align:left;">
+                    <p id="level-desc" style="font-size:1rem; color: var(--text);"></p>
+                </div>
+                <h3 id="rec-service" style="color:var(--text-dim); font-size: 0.9rem; margin-bottom: 40px;"></h3>
+                
+                <div id="capture-area" style="max-width: 400px; margin: 0 auto;">
+                    <p data-key="capture-title" style="font-size: 0.75rem; color: var(--accent); margin-bottom: 15px; text-transform: uppercase;">Recibir Reporte Ejecutivo</p>
+                    <input type="email" id="user-email" placeholder="E-mail corporativo">
+                    <button class="btn btn-primary" id="btn-send-report" style="width: 100%;" onclick="enviarReporteAxioma()" data-key="btn-send-report">Generar Diagnóstico</button>
+                </div>
+                <button class="btn" style="margin-top:40px; border:none; font-size:0.7rem; color:var(--text-dim);" onclick="location.reload()" data-key="btn-restart">Reiniciar Evaluación</button>
             </div>
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 60px; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 0.8rem;">
-        AXIOMA DATA SOLUTIONS | DEL DATO AL PRINCIPIO DE DECISIÓN | 2026
+    <section id="contact" style="text-align:center; padding:100px 10%; background: var(--card-bg);">
+        <h2 class="fade-up" data-key="cta-h" style="font-size:3rem; margin-bottom:30px; letter-spacing: -1px;">Implemente Inteligencia Financiera hoy.</h2>
+        <div class="fade-up delay-1" style="margin-bottom: 40px;">
+            <p data-key="phone-label" style="font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px;">Data Strategy Desk B2B</p>
+            <a href="tel:+525519785802" style="display: inline-block; margin-top: 15px; font-size: 1.5rem; font-weight: 800; color: var(--accent); text-decoration: none; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px rgba(100,255,218,0.5)'" onmouseout="this.style.textShadow='none'">+52 55 1978 5802</a>
+        </div>
+        <button class="btn fade-up delay-2" data-key="cta-btn" style="background:var(--text); color:var(--bg); padding:18px 50px;" onclick="window.open('https://wa.me/5215519785802', '_blank')">Contactar a Axioma</button>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 20px; font-size: 1.2rem;">Axioma</div>
+                <p style="color: var(--text-dim); font-size: 0.85rem; max-width: 250px; line-height: 1.8;" data-key="footer-desc">Aceleramos su transición hacia la madurez analítica. Implementamos sistemas de inteligencia financiera que eliminan la incertidumbre operativa.</p>
+            </div>
+            <div class="footer-col">
+                <h4 data-key="nav-what">DATA INTELLIGENCE</h4>
+                <a href="#services" data-key="serv-1-t">Auditoría de Sistemas</a>
+                <a href="#services" data-key="serv-2-t">Gobierno de Datos</a>
+                <a href="#services" data-key="serv-3-t">Modelado Financiero</a>
+            </div>
+            <div class="footer-col">
+                <h4 data-key="nav-insights">MADUREZ ANALÍTICA</h4>
+                <a href="#diag" data-key="btn-diag">Fricción vs Capital</a>
+                <a href="#maturity" data-key="quiz-title">Test de Madurez</a>
+            </div>
+            <div class="footer-col">
+                <h4 data-key="nav-contact">CONTACTO</h4>
+                <p style="color:var(--text-dim); font-size:0.8rem; margin-bottom: 10px;">Sede México</p>
+                <a href="tel:+525519785802" style="color:var(--accent); font-weight:700;">+52 55 1978 5802</a>
+                <a href="mailto:estrategia@axioma.com" style="margin-top: 10px;">estrategia@axioma.com</a>
+            </div>
+        </div>
+        <div style="text-align: center; color: var(--text-dim); font-size: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; letter-spacing: 1px;">
+            AXIOMA DATA SOLUTIONS &copy; 2026 | INGENIERÍA ANALÍTICA Y FINANCIERA
+        </div>
     </footer>
 
     <script>
+        const translations = {
+            es: {
+                "nav-who": "QUIÉNES SOMOS", "nav-what": "QUÉ HACEMOS", "nav-insights": "MADUREZ ANALÍTICA", "nav-contact": "CONTACTO",
+                "mm-identidad": "Identidad Corporativa", "mm-integridad": "Integridad Estadística", "mm-vision": "Arquitectura Analítica", 
+                "mm-liderazgo": "Estructura", "mm-equipo": "Liderazgo Estratégico", "mm-alianzas": "Ecosistema de Datos",
+                "mm-soluciones": "Data Intelligence Core", "mm-sectores": "Sectores de Enfoque", "mm-sec-vc": "Venture Capital & PE", "mm-sec-fin": "Servicios Financieros", "mm-sec-retail": "Retail & E-commerce",
+                "mm-herramientas": "Laboratorio de Diagnóstico",
+                "metric-1": "Trazabilidad de Datos", "metric-2": "Puntos Ciegos Operativos", "metric-3": "Visibilidad Financiera",
+                "hero-title": "Data Intelligence y Arquitectura Financiera.", 
+                "hero-p": "Elevamos la madurez analítica de su organización. Transformamos ecosistemas de datos en motores de inteligencia financiera para una toma de decisiones con certeza matemática.",
+                "btn-diag-hero": "Evaluar Madurez Analítica",
+                "mision-t": "Integridad Estadística", "mision-p": "Gobernamos la captura y limpieza de datos para asegurar que cada modelo financiero y operativo esté respaldado por una realidad métrica absoluta.",
+                "vision-t": "Arquitectura Analítica", "vision-p": "Estandarizamos sus flujos de información en un ecosistema unificado, dotando a la alta dirección de una única fuente de verdad institucional.",
+                "anth-t": "Inteligencia Financiera", "anth-p": "Aplicamos modelado avanzado sobre sus datos históricos para identificar fugas de capital y proyectar la asignación de recursos más rentable.",
+                "lab-desc": "Auditoría en tiempo real sobre el impacto financiero de su infraestructura de datos.",
+                "diag-title": "Impacto de la Fricción Operativa", "label-rev": "Facturación Anual (USD)", "label-err": "Fricción en Datos / Latencia (%)",
+                "res-label": "Pérdida por Baja Madurez Analítica", "res-p": "Capital recuperable migrando hacia sistemas centralizados de inteligencia financiera.",
+                "quiz-title": "Test de Madurez Analítica",
+                "serv-1-t": "Auditoría de Sistemas", "serv-1-p": "Diagnóstico técnico de su infraestructura. Localizamos cuellos de botella operativos y latencia en los datos que distorsionan su visibilidad financiera.",
+                "serv-2-t": "Gobierno de Datos", "serv-2-p": "Diseño de protocolos de estructuración y calidad. Centralizamos la información departamental para transicionar hacia un nivel de madurez analítica avanzado.",
+                "serv-3-t": "Modelado Financiero", "serv-3-p": "Construcción de algoritmos predictivos. Optimizamos la rentabilidad simulando escenarios de mercado basados estrictamente en la evidencia de sus datos.",
+                "cta-h": "Implemente Inteligencia Financiera hoy.", "btn-restart": "REINICIAR EVALUACIÓN",
+                "capture-title": "Recibir Reporte Ejecutivo", "btn-send-report": "Generar Diagnóstico", "cta-btn": "Contactar a Axioma",
+                "phone-label": "Data Strategy Desk B2B", "btn-diag": "Fricción vs Capital", "footer-desc": "Aceleramos su transición hacia la madurez analítica. Implementamos sistemas de inteligencia financiera que eliminan la incertidumbre operativa."
+            },
+            en: {
+                "nav-who": "WHO WE ARE", "nav-what": "WHAT WE DO", "nav-insights": "ANALYTICAL MATURITY", "nav-contact": "CONTACT",
+                "mm-identidad": "Corporate Identity", "mm-integridad": "Statistical Integrity", "mm-vision": "Analytical Architecture",
+                "mm-liderazgo": "Structure", "mm-equipo": "Strategic Leadership", "mm-alianzas": "Data Ecosystem",
+                "mm-soluciones": "Data Intelligence Core", "mm-sectores": "Focus Sectors", "mm-sec-vc": "Venture Capital & PE", "mm-sec-fin": "Financial Services", "mm-sec-retail": "Retail & E-commerce",
+                "mm-herramientas": "Diagnostic Lab",
+                "metric-1": "Data Traceability", "metric-2": "Operational Blind Spots", "metric-3": "Financial Visibility",
+                "hero-title": "Data Intelligence and Financial Architecture.", 
+                "hero-p": "We elevate your organization's analytical maturity. We transform data ecosystems into financial intelligence engines for decision-making with mathematical certainty.",
+                "btn-diag-hero": "Assess Analytical Maturity",
+                "mision-t": "Statistical Integrity", "mision-p": "We govern data capture and cleansing to ensure every financial and operational model is backed by absolute metric reality.",
+                "vision-t": "Analytical Architecture", "vision-p": "We standardize your information flows into a unified ecosystem, providing top management with a single institutional source of truth.",
+                "anth-t": "Financial Intelligence", "anth-p": "We apply advanced modeling to your historical data to identify capital leaks and project the most profitable resource allocation.",
+                "lab-desc": "Real-time audit on the financial impact of your data infrastructure.",
+                "diag-title": "Operational Friction Impact", "label-rev": "Annual Revenue (USD)", "label-err": "Data Friction / Latency (%)",
+                "res-label": "Loss due to Low Analytical Maturity", "res-p": "Recoverable capital by migrating towards centralized financial intelligence systems.",
+                "quiz-title": "Analytical Maturity Test",
+                "serv-1-t": "Systems Audit", "serv-1-p": "Technical diagnostic of your infrastructure. We locate operational bottlenecks and data latency that distort your financial visibility.",
+                "serv-2-t": "Data Governance", "serv-2-p": "Design of structuring and quality protocols. We centralize departmental info to transition towards an advanced level of analytical maturity.",
+                "serv-3-t": "Financial Modeling", "serv-3-p": "Construction of predictive algorithms. We optimize profitability by simulating market scenarios based strictly on data evidence.",
+                "cta-h": "Implement Financial Intelligence today.", "btn-restart": "RESTART ASSESSMENT",
+                "capture-title": "Receive Executive Report", "btn-send-report": "Generate Diagnostic", "cta-btn": "Contact Axioma",
+                "phone-label": "B2B Data Strategy Desk", "btn-diag": "Friction vs Capital", "footer-desc": "We accelerate your transition towards analytical maturity. We implement financial intelligence systems that eliminate operational uncertainty."
+            }
+        };
+
+        let currentLang = 'es';
+        let currentQIdx = 0;
+        let quizScore = 0;
+
+        function setLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-key]').forEach(el => { 
+                const key = el.getAttribute('data-key');
+                if(translations[lang][key]) { el.innerText = translations[lang][key]; }
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${lang}`).classList.add('active');
+            
+            currentQIdx = 0; quizScore = 0;
+            document.getElementById('quiz-container').style.display = 'block';
+            document.getElementById('quiz-result').style.display = 'none';
+            loadQuestion();
+        }
+
+        /* LÓGICA CALCULADORA */
         const revIn = document.getElementById('f-rev');
         const errIn = document.getElementById('f-err');
-        
         function runCalc() {
             const r = parseInt(revIn.value);
             const e = parseInt(errIn.value) / 100;
-            const leak = r * e * 12; // Pérdida anual
-
             document.getElementById('v-rev').innerText = r.toLocaleString();
             document.getElementById('v-err').innerText = (e * 100).toFixed(0);
-            document.getElementById('v-leak').innerText = '$' + leak.toLocaleString();
+            document.getElementById('v-leak').innerText = '$' + (r * e).toLocaleString();
         }
-
         revIn.addEventListener('input', runCalc);
         errIn.addEventListener('input', runCalc);
-        runCalc();
+
+        /* LÓGICA QUIZ */
+        const quizData = {
+            es: [
+                { q: "¿Cómo se consolida la información financiera y operativa para las revisiones directivas?", a: ["Exportaciones manuales de diferentes sistemas unificadas en hojas de cálculo", "Tableros conectados a bases de datos, pero requieren conciliación manual", "Data warehouse centralizado con flujos automatizados y validación", "Ecosistema de datos gobernado con trazabilidad absoluta"] },
+                { q: "¿Cuál es el nivel de profundidad analítica en sus modelos de rentabilidad y costos?", a: ["Análisis descriptivo retrospectivo (qué sucedió en el cierre)", "Análisis diagnóstico con KPIs estandarizados (variaciones vs. presupuesto)", "Modelado predictivo basado en series de tiempo y variables", "Modelado prescriptivo con simulación de escenarios"] },
+                { q: "¿Cuál es la latencia entre un evento operativo y su visualización financiera?", a: ["Cierre mensual: reportes consolidados semanas después", "Cierre semanal: actualización de tableros al final de la semana", "Actualización diaria (T+1): infraestructura sincronizada", "Tiempo real o micro-batch: visibilidad inmediata del impacto"] }
+            ],
+            en: [
+                { q: "How is financial and operational information consolidated for board reviews?", a: ["Manual exports from different systems unified in spreadsheets", "Dashboards connected to databases, but require manual reconciliation", "Centralized data warehouse with automated flows and cross-validation", "Governed data ecosystem with absolute traceability"] },
+                { q: "What is the level of analytical depth in your profitability and cost models?", a: ["Retrospective descriptive analysis (what happened at close)", "Diagnostic analysis with standardized KPIs (variances vs. budget)", "Predictive modeling based on time series and variables", "Prescriptive modeling with scenario simulation"] },
+                { q: "What is the latency between an operational event and its financial visualization?", a: ["Monthly close: reports consolidated weeks after the event", "Weekly close: dashboards updated at the end of the week", "Daily update (T+1): synchronized infrastructure", "Real-time or micro-batch: immediate visibility of impact"] }
+            ]
+        };
+
+        function loadQuestion() {
+            const box = document.getElementById('question-box');
+            if(currentQIdx >= quizData[currentLang].length) return;
+            const data = quizData[currentLang][currentQIdx];
+            let html = `<h3 style="margin-bottom:25px; text-align:center; font-size: 1.1rem; color: var(--text);">${data.q}</h3>`;
+            data.a.forEach((ans, i) => { html += `<button class="option-btn" onclick="handleQuiz(${i+1})">${ans}</button>`; });
+            box.innerHTML = html;
+        }
+
+        function handleQuiz(pts) {
+            quizScore += pts; currentQIdx++;
+            if(currentQIdx < quizData[currentLang].length) loadQuestion(); else showResult();
+        }
+
+        function showResult() {
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('quiz-result').style.display = 'block';
+            let key = quizScore < 6 ? 'L1' : quizScore < 10 ? 'L2' : 'L3';
+            
+            const resultsData = {
+                es: {
+                    L1: { t: "Nivel 1: Infraestructura Fragmentada", d: "Riesgo operativo significativo. Carece de respaldo de datos unificado, lo que genera alta fricción y latencia financiera.", s: "Recomendación: Ejecutar Auditoría de Sistemas de Data Intelligence." },
+                    L2: { t: "Nivel 2: Madurez Transicional", d: "Captura valor de los datos, pero procesos manuales y silos departamentales limitan la inteligencia financiera.", s: "Recomendación: Implementar Protocolos de Gobierno de Datos." },
+                    L3: { t: "Nivel 3: Madurez Analítica Avanzada", d: "Base arquitectónica sólida. El siguiente paso es capitalizar esta infraestructura mediante automatización de la rentabilidad.", s: "Recomendación: Desarrollar Modelado Financiero Predictivo." }
+                },
+                en: {
+                    L1: { t: "Level 1: Fragmented Infrastructure", d: "Significant operational risk. Lacks unified data backing, generating high friction and financial latency.", s: "Recommendation: Execute Data Intelligence Systems Audit." },
+                    L2: { t: "Level 2: Transitional Maturity", d: "Captures value, but manual processes and departmental silos limit financial intelligence.", s: "Recommendation: Implement Data Governance Protocols." },
+                    L3: { t: "Level 3: Advanced Analytical Maturity", d: "Solid architectural base. The next step is capitalizing on this infrastructure by automating profitability.", s: "Recommendation: Develop Predictive Financial Modeling." }
+                }
+            };
+            const res = resultsData[currentLang][key];
+            document.getElementById('level-name').innerText = res.t;
+            document.getElementById('level-desc').innerText = res.d;
+            document.getElementById('rec-service').innerText = res.s;
+        }
+
+        function enviarReporteAxioma() {
+            const SERVICE_ID = "service_89a3iq9";
+            const TEMPLATE_ID = "template_urw0y1p";
+            const WHATSAPP_NUMBER = "5215519785802"; 
+
+            const emailInput = document.getElementById('user-email');
+            const email = emailInput.value;
+            const levelName = document.getElementById('level-name').innerText;
+            
+            if (!email || !email.includes('@')) {
+                alert(currentLang === 'es' ? "Por favor, ingresa un correo corporativo válido." : "Please enter a valid corporate email."); return;
+            }
+
+            const btn = document.getElementById('btn-send-report');
+            btn.innerText = currentLang === 'es' ? "PROCESANDO MATRIZ..." : "PROCESSING MATRIX..."; btn.disabled = true;
+
+            emailjs.send(SERVICE_ID, TEMPLATE_ID, { user_email: email, score: levelName })
+                .then(function() {
+                    alert(currentLang === 'es' ? 'Diagnóstico de madurez enviado con éxito.' : 'Maturity assessment sent successfully.');
+                    btn.innerText = currentLang === 'es' ? "AGENDAR CONSULTORÍA (WHATSAPP)" : "SCHEDULE CONSULTING (WHATSAPP)";
+                    btn.disabled = false;
+                    btn.onclick = function() {
+                        const msg = encodeURIComponent(currentLang === 'es' ? `Hola, obtuve: ${levelName} en el test de Data Intelligence de Axioma. Me interesa una consultoría.` : `Hello, I got: ${levelName} on the Axioma Data Intelligence test. I am interested in a consulting session.`);
+                        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+                    };
+                }, function(err) { alert('Error.'); btn.disabled = false; });
+        }
+
+        loadQuestion();
+
+        /* INTERSECTION OBSERVER & ANIMACIÓN DE NÚMEROS */
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        if(entry.target.id === 'metrics-section' && !entry.target.classList.contains('counted')) {
+                            entry.target.classList.add('counted');
+                            const counters = document.querySelectorAll('.counter');
+                            counters.forEach(counter => {
+                                const updateCount = () => {
+                                    const target = +counter.getAttribute('data-target');
+                                    const count = +counter.innerText;
+                                    const speed = 200; 
+                                    const inc = target / speed;
+                                    if (count < target) {
+                                        counter.innerText = Math.ceil(count + inc);
+                                        setTimeout(updateCount, 15);
+                                    } else {
+                                        counter.innerText = target;
+                                    }
+                                };
+                                updateCount();
+                            });
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        });
     </script>
 </body>
 </html>
