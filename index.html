@@ -142,10 +142,23 @@
         .footer-col a { display: block; color: var(--text-dim); text-decoration: none; margin-bottom: 12px; font-size: 0.8rem; transition: 0.2s; }
         .footer-col a:hover { color: var(--accent); padding-left: 3px; }
 
+        /* AJUSTES RESPONSIVOS (CELULAR) */
         @media (max-width: 900px) {
             .nav-links { display: none; } 
-            .hero h1 { font-size: 2.8rem !important; }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .hero h1 { font-size: 2.4rem !important; }
+            
+            /* Ajustes críticos para Celular */
+            section { padding: 80px 5% !important; }
+            .diag-box { padding: 30px 20px !important; }
+            
+            /* Forzar a 1 sola columna la calculadora */
+            .diag-box div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 30px !important; }
+            
+            /* Forzar a 1 sola columna el Footer */
+            .footer-grid { grid-template-columns: 1fr !important; gap: 30px; }
+            
+            /* Reducir el tamaño de los números grandes */
+            .metrics-bar div div:first-child { font-size: 2.5rem !important; }
         }
     </style>
 </head>
@@ -175,15 +188,24 @@
                     <div class="mega-menu">
                         <div class="mega-col">
                             <h4 data-key="mm-soluciones">Data Intelligence Core</h4>
-                            <a href="#services" data-key="serv-1-t">Auditoría de Sistemas</a>
-                            <a href="#services" data-key="serv-2-t">Gobierno de Datos</a>
-                            <a href="#services" data-key="serv-3-t">Modelado Financiero</a>
+                            <a href="#services" data-key="serv-1-t">Dashboards y reportes ejecutivos</a>
+                            <a href="#services" data-key="serv-2-t">Automatización de reportes</a>
+                            <a href="#services" data-key="serv-3-t">Integración y limpieza de datos</a>
+                            <a href="#services" data-key="serv-4-t">Modelado de datos y KPIs</a>
+                            <a href="#services" data-key="serv-5-t">Forecasting y analítica de negocio</a>
+                            <a href="#services" data-key="serv-6-t">Auditoría y mejora de BI existente</a>
+                            <a href="#services" data-key="serv-7-t">Capacitación en herramientas de análisis</a>
                         </div>
                         <div class="mega-col">
                             <h4 data-key="mm-sectores">Sectores de Enfoque</h4>
-                            <a href="#" data-key="mm-sec-vc">Venture Capital & PE</a>
-                            <a href="#" data-key="mm-sec-fin">Servicios Financieros</a>
-                            <a href="#" data-key="mm-sec-retail">Retail & E-commerce</a>
+                            <a href="#" data-key="ind-1">Fintech y servicios financieros</a>
+                            <a href="#" data-key="ind-2">Retail y e-commerce</a>
+                            <a href="#" data-key="ind-3">Consumo masivo</a>
+                            <a href="#" data-key="ind-4">Logística y transporte</a>
+                            <a href="#" data-key="ind-5">Energía</a>
+                            <a href="#" data-key="ind-6">Manufactura</a>
+                            <a href="#" data-key="ind-7">Inmobiliario y construcción</a>
+                            <a href="#" data-key="ind-8">Tecnología y SaaS</a>
                         </div>
                     </div>
                 </li>
@@ -257,16 +279,32 @@
         <h2 class="fade-up" style="font-size: 2.5rem; margin-bottom: 60px;" data-key="nav-what">DATA INTELLIGENCE CORE</h2>
         <div class="grid-3">
             <div class="card fade-up delay-1" style="background: transparent; border-color: transparent; border-left: 2px solid var(--accent); border-radius: 0; padding-left: 30px;">
-                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-1-t">Auditoría de Sistemas</h3>
-                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-1-p">Diagnóstico técnico de su infraestructura. Localizamos cuellos de botella operativos y latencia en los datos que distorsionan su visibilidad financiera.</p>
+                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-1-t">Dashboards y reportes ejecutivos</h3>
+                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-1-p">Visualización en tiempo real de métricas críticas y consolidadas para facilitar la toma de decisiones ágil y precisa en la alta dirección.</p>
             </div>
             <div class="card fade-up delay-2" style="background: transparent; border-color: transparent; border-left: 2px solid var(--accent); border-radius: 0; padding-left: 30px;">
-                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-2-t">Gobierno de Datos</h3>
-                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-2-p">Diseño de protocolos de estructuración y calidad. Centralizamos la información departamental para transicionar hacia un nivel de madurez analítica avanzado.</p>
+                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-2-t">Automatización de reportes</h3>
+                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-2-p">Eliminación de la intervención manual mediante el diseño de flujos de datos programados (ETL) que aseguran la disponibilidad continua de su información.</p>
             </div>
             <div class="card fade-up delay-3" style="background: transparent; border-color: transparent; border-left: 2px solid var(--accent); border-radius: 0; padding-left: 30px;">
-                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-3-t">Modelado Financiero</h3>
-                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-3-p">Construcción de algoritmos predictivos. Optimizamos la rentabilidad simulando escenarios de mercado basados estrictamente en la evidencia de sus datos.</p>
+                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-3-t">Integración y limpieza de datos</h3>
+                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-3-p">Estructuración de bases de datos dispersas, corrigiendo anomalías para construir un repositorio centralizado, confiable y listo para análisis profundo.</p>
+            </div>
+            <div class="card fade-up delay-1" style="background: transparent; border-color: transparent; border-left: 2px solid var(--accent); border-radius: 0; padding-left: 30px;">
+                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-4-t">Modelado de datos y KPIs</h3>
+                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-4-p">Construcción de arquitecturas lógicas y definición de indicadores clave de rendimiento (KPIs) estrictamente alineados con sus objetivos de crecimiento.</p>
+            </div>
+            <div class="card fade-up delay-2" style="background: transparent; border-color: transparent; border-left: 2px solid var(--accent); border-radius: 0; padding-left: 30px;">
+                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-5-t">Forecasting y analítica de negocio</h3>
+                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-5-p">Generación de proyecciones financieras y operativas de alta fiabilidad, utilizando modelos predictivos basados en sus tendencias históricas y de mercado.</p>
+            </div>
+            <div class="card fade-up delay-3" style="background: transparent; border-color: transparent; border-left: 2px solid var(--accent); border-radius: 0; padding-left: 30px;">
+                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-6-t">Auditoría y mejora de BI existente</h3>
+                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-6-p">Diagnóstico técnico exhaustivo de su infraestructura analítica actual para resolver cuellos de botella y potenciar el rendimiento de su plataforma de BI.</p>
+            </div>
+            <div class="card fade-up delay-1" style="background: transparent; border-color: transparent; border-left: 2px solid var(--accent); border-radius: 0; padding-left: 30px;">
+                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-7-t">Capacitación en herramientas de análisis</h3>
+                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-7-p">Transferencia estratégica de conocimiento analítico para empoderar a su equipo interno en la autogestión y explotación óptima de sus ecosistemas de datos.</p>
             </div>
         </div>
     </section>
@@ -339,9 +377,13 @@
             </div>
             <div class="footer-col">
                 <h4 data-key="nav-what">DATA INTELLIGENCE</h4>
-                <a href="#services" data-key="serv-1-t">Auditoría de Sistemas</a>
-                <a href="#services" data-key="serv-2-t">Gobierno de Datos</a>
-                <a href="#services" data-key="serv-3-t">Modelado Financiero</a>
+                <a href="#services" data-key="serv-1-t">Dashboards y reportes ejecutivos</a>
+                <a href="#services" data-key="serv-2-t">Automatización de reportes</a>
+                <a href="#services" data-key="serv-3-t">Integración y limpieza de datos</a>
+                <a href="#services" data-key="serv-4-t">Modelado de datos y KPIs</a>
+                <a href="#services" data-key="serv-5-t">Forecasting y analítica de negocio</a>
+                <a href="#services" data-key="serv-6-t">Auditoría y mejora de BI existente</a>
+                <a href="#services" data-key="serv-7-t">Capacitación analítica</a>
             </div>
             <div class="footer-col">
                 <h4 data-key="nav-insights">MADUREZ ANALÍTICA</h4>
@@ -366,7 +408,8 @@
                 "nav-who": "QUIÉNES SOMOS", "nav-what": "QUÉ HACEMOS", "nav-insights": "MADUREZ ANALÍTICA", "nav-contact": "CONTACTO",
                 "mm-identidad": "Identidad Corporativa", "mm-integridad": "Integridad Estadística", "mm-vision": "Arquitectura Analítica", 
                 "mm-liderazgo": "Estructura", "mm-equipo": "Liderazgo Estratégico", "mm-alianzas": "Ecosistema de Datos",
-                "mm-soluciones": "Data Intelligence Core", "mm-sectores": "Sectores de Enfoque", "mm-sec-vc": "Venture Capital & PE", "mm-sec-fin": "Servicios Financieros", "mm-sec-retail": "Retail & E-commerce",
+                "mm-soluciones": "Data Intelligence Core", "mm-sectores": "Sectores de Enfoque", 
+                "ind-1": "Fintech y servicios financieros", "ind-2": "Retail y e-commerce", "ind-3": "Consumo masivo", "ind-4": "Logística y transporte", "ind-5": "Energía", "ind-6": "Manufactura", "ind-7": "Inmobiliario y construcción", "ind-8": "Tecnología y SaaS",
                 "mm-herramientas": "Laboratorio de Diagnóstico",
                 "metric-1": "Trazabilidad de Datos", "metric-2": "Puntos Ciegos Operativos", "metric-3": "Visibilidad Financiera",
                 "hero-title": "Data Intelligence y Arquitectura Financiera.", 
@@ -379,9 +422,13 @@
                 "diag-title": "Impacto de la Fricción Operativa", "label-rev": "Facturación Anual (USD)", "label-err": "Fricción en Datos / Latencia (%)",
                 "res-label": "Pérdida por Baja Madurez Analítica", "res-p": "Capital recuperable migrando hacia sistemas centralizados de inteligencia financiera.",
                 "quiz-title": "Test de Madurez Analítica",
-                "serv-1-t": "Auditoría de Sistemas", "serv-1-p": "Diagnóstico técnico de su infraestructura. Localizamos cuellos de botella operativos y latencia en los datos que distorsionan su visibilidad financiera.",
-                "serv-2-t": "Gobierno de Datos", "serv-2-p": "Diseño de protocolos de estructuración y calidad. Centralizamos la información departamental para transicionar hacia un nivel de madurez analítica avanzado.",
-                "serv-3-t": "Modelado Financiero", "serv-3-p": "Construcción de algoritmos predictivos. Optimizamos la rentabilidad simulando escenarios de mercado basados estrictamente en la evidencia de sus datos.",
+                "serv-1-t": "Dashboards y reportes ejecutivos", "serv-1-p": "Visualización en tiempo real de métricas críticas y consolidadas para facilitar la toma de decisiones ágil y precisa en la alta dirección.",
+                "serv-2-t": "Automatización de reportes", "serv-2-p": "Eliminación de la intervención manual mediante el diseño de flujos de datos programados (ETL) que aseguran la disponibilidad continua de su información.",
+                "serv-3-t": "Integración y limpieza de datos", "serv-3-p": "Estructuración de bases de datos dispersas, corrigiendo anomalías para construir un repositorio centralizado, confiable y listo para análisis profundo.",
+                "serv-4-t": "Modelado de datos y KPIs", "serv-4-p": "Construcción de arquitecturas lógicas y definición de indicadores clave de rendimiento (KPIs) estrictamente alineados con sus objetivos de crecimiento.",
+                "serv-5-t": "Forecasting y analítica de negocio", "serv-5-p": "Generación de proyecciones financieras y operativas de alta fiabilidad, utilizando modelos predictivos basados en sus tendencias históricas y de mercado.",
+                "serv-6-t": "Auditoría y mejora de BI existente", "serv-6-p": "Diagnóstico técnico exhaustivo de su infraestructura analítica actual para resolver cuellos de botella y potenciar el rendimiento de su plataforma de BI.",
+                "serv-7-t": "Capacitación en herramientas de análisis", "serv-7-p": "Transferencia estratégica de conocimiento analítico para empoderar a su equipo interno en la autogestión y explotación óptima de sus ecosistemas de datos.",
                 "cta-h": "Implemente Inteligencia Financiera hoy.", "btn-restart": "REINICIAR EVALUACIÓN",
                 "capture-title": "Recibir Reporte Ejecutivo", "btn-send-report": "Generar Diagnóstico", "cta-btn": "Contactar a Axioma",
                 "phone-label": "Data Strategy Desk B2B", "btn-diag": "Fricción vs Capital", "footer-desc": "Aceleramos su transición hacia la madurez analítica. Implementamos sistemas de inteligencia financiera que eliminan la incertidumbre operativa."
@@ -390,7 +437,8 @@
                 "nav-who": "WHO WE ARE", "nav-what": "WHAT WE DO", "nav-insights": "ANALYTICAL MATURITY", "nav-contact": "CONTACT",
                 "mm-identidad": "Corporate Identity", "mm-integridad": "Statistical Integrity", "mm-vision": "Analytical Architecture",
                 "mm-liderazgo": "Structure", "mm-equipo": "Strategic Leadership", "mm-alianzas": "Data Ecosystem",
-                "mm-soluciones": "Data Intelligence Core", "mm-sectores": "Focus Sectors", "mm-sec-vc": "Venture Capital & PE", "mm-sec-fin": "Financial Services", "mm-sec-retail": "Retail & E-commerce",
+                "mm-soluciones": "Data Intelligence Core", "mm-sectores": "Focus Sectors", 
+                "ind-1": "Fintech & Financial Services", "ind-2": "Retail & E-commerce", "ind-3": "FMCG / Consumer Goods", "ind-4": "Logistics & Transportation", "ind-5": "Energy", "ind-6": "Manufacturing", "ind-7": "Real Estate & Construction", "ind-8": "Technology & SaaS",
                 "mm-herramientas": "Diagnostic Lab",
                 "metric-1": "Data Traceability", "metric-2": "Operational Blind Spots", "metric-3": "Financial Visibility",
                 "hero-title": "Data Intelligence and Financial Architecture.", 
@@ -403,9 +451,13 @@
                 "diag-title": "Operational Friction Impact", "label-rev": "Annual Revenue (USD)", "label-err": "Data Friction / Latency (%)",
                 "res-label": "Loss due to Low Analytical Maturity", "res-p": "Recoverable capital by migrating towards centralized financial intelligence systems.",
                 "quiz-title": "Analytical Maturity Test",
-                "serv-1-t": "Systems Audit", "serv-1-p": "Technical diagnostic of your infrastructure. We locate operational bottlenecks and data latency that distort your financial visibility.",
-                "serv-2-t": "Data Governance", "serv-2-p": "Design of structuring and quality protocols. We centralize departmental info to transition towards an advanced level of analytical maturity.",
-                "serv-3-t": "Financial Modeling", "serv-3-p": "Construction of predictive algorithms. We optimize profitability by simulating market scenarios based strictly on data evidence.",
+                "serv-1-t": "Executive Dashboards & Reporting", "serv-1-p": "Real-time visualization of critical and consolidated metrics to facilitate agile and precise decision-making for top management.",
+                "serv-2-t": "Report Automation", "serv-2-p": "Elimination of manual intervention by designing scheduled data flows (ETL) that ensure the continuous availability of your information.",
+                "serv-3-t": "Data Integration & Cleansing", "serv-3-p": "Structuring of dispersed databases, correcting anomalies to build a centralized, reliable repository ready for deep analysis.",
+                "serv-4-t": "Data Modeling & KPIs", "serv-4-p": "Construction of logical architectures and definition of Key Performance Indicators (KPIs) strictly aligned with your growth objectives.",
+                "serv-5-t": "Forecasting & Business Analytics", "serv-5-p": "Generation of highly reliable financial and operational projections, using predictive models based on your historical and market trends.",
+                "serv-6-t": "Existing BI Audit & Enhancement", "serv-6-p": "Exhaustive technical diagnostic of your current analytical infrastructure to resolve bottlenecks and boost your BI platform's performance.",
+                "serv-7-t": "Analytics Tools Training", "serv-7-p": "Strategic transfer of analytical knowledge to empower your internal team in the self-management and optimal exploitation of your data ecosystems.",
                 "cta-h": "Implement Financial Intelligence today.", "btn-restart": "RESTART ASSESSMENT",
                 "capture-title": "Receive Executive Report", "btn-send-report": "Generate Diagnostic", "cta-btn": "Contact Axioma",
                 "phone-label": "B2B Data Strategy Desk", "btn-diag": "Friction vs Capital", "footer-desc": "We accelerate your transition towards analytical maturity. We implement financial intelligence systems that eliminate operational uncertainty."
