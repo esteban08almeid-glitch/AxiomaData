@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Axioma | Data Intelligence & Inteligencia de Negocios</title>
+    <title>Axioma | Data, Business Intelligence & AI Consulting</title>
     
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
@@ -105,33 +105,31 @@
         .card { background: var(--card-bg); padding: 40px; border-radius: 10px; border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .card:hover { border-color: var(--accent); transform: translateY(-10px); box-shadow: 0 15px 35px rgba(100, 255, 218, 0.08); background: rgba(17, 34, 64, 0.6); }
         
+        /* TARJETA PREMIUM (AI CONSULTING) */
+        .card-premium {
+            grid-column: 1 / -1; 
+            background: linear-gradient(135deg, rgba(17, 34, 64, 0.8), rgba(100, 255, 218, 0.05));
+            border: 1px solid rgba(100, 255, 218, 0.4);
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .card-premium::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent);
+        }
+        .card-premium:hover { box-shadow: 0 0 30px rgba(100, 255, 218, 0.15); transform: translateY(-5px); }
+
         .diag-box { 
             background: #0a192f; border: 1px solid var(--accent); 
             border-radius: 15px; padding: 60px; margin: 20px 0;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             transition: 0.3s;
-            width: 100%; /* Asegurar que no rebase */
+            width: 100%; 
         }
 
-        /* ESTRUCTURA DE LA CALCULADORA (Mejorada para no desbordar) */
-        .calc-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            width: 100%;
-        }
-        .calc-inputs {
-            width: 100%;
-        }
-        .calc-result {
-            background: rgba(0,0,0,0.5);
-            padding: 50px;
-            border-radius: 10px;
-            border-top: 3px solid var(--accent);
-            text-align: center;
-            width: 100%;
-        }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; width: 100%; }
+        .calc-inputs { width: 100%; }
+        .calc-result { background: rgba(0,0,0,0.5); padding: 50px; border-radius: 10px; border-top: 3px solid var(--accent); text-align: center; width: 100%; }
 
         .btn { 
             border: 1px solid var(--accent); color: var(--accent); 
@@ -150,18 +148,9 @@
         }
         .option-btn:hover { background: rgba(100, 255, 218, 0.05); border-color: var(--accent); transform: translateX(5px); }
 
-        input[type="email"] {
-            width: 100%; padding: 15px; background: rgba(0,0,0,0.3); 
-            border: 1px solid var(--border); border-radius: 4px; color: var(--text); 
-            margin-bottom: 15px; outline: none; transition: 0.3s;
-        }
+        input[type="email"] { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 4px; color: var(--text); margin-bottom: 15px; outline: none; transition: 0.3s; }
         input[type="email"]:focus { border-color: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
-        
-        input[type="range"] {
-            width: 100%; /* Asegurar que el slider no empuje los márgenes */
-            margin: 15px 0; 
-            accent-color: var(--accent);
-        }
+        input[type="range"] { width: 100%; margin: 15px 0; accent-color: var(--accent); }
 
         footer { background: #010308; padding: 80px 10% 40px; border-top: 1px solid var(--border); }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; }
@@ -169,20 +158,17 @@
         .footer-col a { display: block; color: var(--text-dim); text-decoration: none; margin-bottom: 12px; font-size: 0.8rem; transition: 0.2s; }
         .footer-col a:hover { color: var(--accent); padding-left: 3px; }
 
-        /* AJUSTES RESPONSIVOS (CELULAR) */
+        /* AJUSTES RESPONSIVOS */
         @media (max-width: 900px) {
             .nav-links { display: none; } 
             .hero h1 { font-size: 2.3rem !important; }
-            
             section { padding: 80px 5% !important; }
             .diag-box { padding: 30px 20px !important; }
-            
-            /* Apilar la calculadora y reducir espacios internos para que no rebalse */
             .calc-grid { grid-template-columns: 1fr !important; gap: 30px !important; }
             .calc-result { padding: 30px 15px !important; }
-            
             .footer-grid { grid-template-columns: 1fr !important; gap: 30px; }
             .metrics-bar div div:first-child { font-size: 2.5rem !important; }
+            .card-premium div { flex-direction: column; align-items: flex-start !important; gap: 10px; }
         }
     </style>
 </head>
@@ -211,14 +197,14 @@
                     <span data-key="nav-what">QUÉ HACEMOS</span>
                     <div class="mega-menu">
                         <div class="mega-col">
-                            <h4 data-key="mm-soluciones">Data Intelligence Core</h4>
+                            <h4 data-key="mm-soluciones">Soluciones Core & AI</h4>
+                            <a href="#services" data-key="serv-ai-t" style="color: var(--accent); font-weight: 700;">★ AI Consulting & Estrategia Algorítmica</a>
                             <a href="#services" data-key="serv-1-t">Dashboards y reportes ejecutivos</a>
                             <a href="#services" data-key="serv-2-t">Automatización de reportes</a>
                             <a href="#services" data-key="serv-3-t">Integración y limpieza de datos</a>
                             <a href="#services" data-key="serv-4-t">Modelado de datos y KPIs</a>
                             <a href="#services" data-key="serv-5-t">Forecasting y analítica de negocio</a>
                             <a href="#services" data-key="serv-6-t">Auditoría y mejora de BI existente</a>
-                            <a href="#services" data-key="serv-7-t">Capacitación en herramientas de análisis</a>
                         </div>
                         <div class="mega-col">
                             <h4 data-key="mm-sectores">Sectores de Enfoque</h4>
@@ -255,8 +241,8 @@
     </header>
 
     <section class="hero">
-        <h1 class="fade-up" data-key="hero-title" style="font-size: 4rem; margin-bottom: 25px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; max-width: 900px;">Data Intelligence e Inteligencia de Negocios.</h1>
-        <p class="fade-up delay-1" data-key="hero-p" style="color:var(--text-dim); max-width:700px; font-size:1.15rem; margin-bottom: 40px;">Elevamos la madurez analítica de su organización. Transformamos ecosistemas de datos en motores de inteligencia de negocios para una toma de decisiones con certeza matemática.</p>
+        <h1 class="fade-up" data-key="hero-title" style="font-size: 4rem; margin-bottom: 25px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; max-width: 900px;">Data, Business Intelligence & AI Consulting.</h1>
+        <p class="fade-up delay-1" data-key="hero-p" style="color:var(--text-dim); max-width:700px; font-size:1.15rem; margin-bottom: 40px;">Elevamos la madurez analítica de su organización. Transformamos ecosistemas de datos en motores de Inteligencia Artificial y de Negocios para una toma de decisiones con certeza matemática.</p>
         <div class="fade-up delay-2" style="display: flex; gap: 20px;">
             <button class="btn btn-primary" onclick="document.getElementById('maturity').scrollIntoView()" data-key="btn-diag-hero">Evaluar Madurez Analítica</button>
             <button class="btn" onclick="document.getElementById('services').scrollIntoView()" data-key="nav-what">Qué Hacemos</button>
@@ -286,22 +272,31 @@
         <div class="grid-3">
             <div class="card fade-up delay-1">
                 <h3 style="color:var(--accent); margin-bottom:15px;" data-key="mision-t">Integridad Estadística</h3>
-                <p data-key="mision-p" style="font-size: 0.9rem; color: var(--text-dim);">Gobernamos la captura y limpieza de datos para asegurar que cada reporte de BI y modelo operativo esté respaldado por una realidad métrica absoluta.</p>
+                <p data-key="mision-p" style="font-size: 0.9rem; color: var(--text-dim);">Gobernamos la captura y limpieza de datos para asegurar que cada reporte de BI y modelo de Machine Learning esté respaldado por una realidad métrica absoluta.</p>
             </div>
             <div class="card fade-up delay-2">
                 <h3 style="color:var(--accent); margin-bottom:15px;" data-key="vision-t">Arquitectura Analítica</h3>
-                <p data-key="vision-p" style="font-size: 0.9rem; color: var(--text-dim);">Estandarizamos sus flujos de información en un ecosistema unificado, dotando a la alta dirección de una única fuente de verdad institucional.</p>
+                <p data-key="vision-p" style="font-size: 0.9rem; color: var(--text-dim);">Estandarizamos sus flujos de información en un ecosistema unificado, dotando a la alta dirección de una única fuente de verdad institucional lista para escalar.</p>
             </div>
             <div class="card fade-up delay-3">
                 <h3 style="color:var(--accent); margin-bottom:15px;" data-key="anth-t">Inteligencia de Negocios</h3>
-                <p data-key="anth-p" style="font-size: 0.9rem; color: var(--text-dim);">Aplicamos analítica avanzada sobre sus datos históricos para identificar fricciones y proyectar la estrategia de crecimiento más rentable.</p>
+                <p data-key="anth-p" style="font-size: 0.9rem; color: var(--text-dim);">Aplicamos IA y analítica avanzada sobre sus datos históricos para identificar fricciones y proyectar la estrategia de crecimiento más rentable.</p>
             </div>
         </div>
     </section>
 
     <section id="services" style="background: rgba(10, 25, 47, 0.3);">
-        <h2 class="fade-up" style="font-size: 2.5rem; margin-bottom: 60px;" data-key="nav-what">DATA INTELLIGENCE CORE</h2>
+        <h2 class="fade-up" style="font-size: 2.5rem; margin-bottom: 60px;" data-key="nav-what">SOLUCIONES CORE & AI</h2>
         <div class="grid-3">
+            
+            <div class="card card-premium fade-up">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="color:var(--accent); font-size: 1.5rem;" data-key="serv-ai-t">AI Consulting & Estrategia Algorítmica</h3>
+                    <span style="background: rgba(100, 255, 218, 0.1); color: var(--accent); padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; letter-spacing: 1px;">PREMIUM</span>
+                </div>
+                <p style="font-size: 0.95rem; color: var(--text-dim); max-width: 800px;" data-key="serv-ai-p">Implementación de arquitecturas de Inteligencia Artificial corporativa. Desde modelos predictivos (Machine Learning) hasta automatización cognitiva e IA generativa, transformamos sus flujos de trabajo para escalar la eficiencia a niveles previamente inalcanzables.</p>
+            </div>
+
             <div class="card fade-up delay-1" style="background: transparent; border-color: transparent; border-left: 2px solid var(--accent); border-radius: 0; padding-left: 30px;">
                 <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-1-t">Dashboards y reportes ejecutivos</h3>
                 <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-1-p">Visualización en tiempo real de métricas críticas y consolidadas para facilitar la toma de decisiones ágil y precisa en la alta dirección.</p>
@@ -320,15 +315,11 @@
             </div>
             <div class="card fade-up delay-2" style="background: transparent; border-color: transparent; border-left: 2px solid var(--accent); border-radius: 0; padding-left: 30px;">
                 <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-5-t">Forecasting y analítica de negocio</h3>
-                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-5-p">Generación de proyecciones estratégicas de alta fiabilidad, utilizando modelos predictivos basados en sus tendencias históricas y de mercado.</p>
+                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-5-p">Generación de proyecciones estratégicas de alta fiabilidad, utilizando algoritmos predictivos basados en sus tendencias históricas y de mercado.</p>
             </div>
             <div class="card fade-up delay-3" style="background: transparent; border-color: transparent; border-left: 2px solid var(--accent); border-radius: 0; padding-left: 30px;">
-                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-6-t">Auditoría y mejora de BI existente</h3>
+                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-6-t">Auditoría y mejora de BI</h3>
                 <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-6-p">Diagnóstico técnico exhaustivo de su infraestructura analítica actual para resolver cuellos de botella y potenciar el rendimiento de su plataforma de BI.</p>
-            </div>
-            <div class="card fade-up delay-1" style="background: transparent; border-color: transparent; border-left: 2px solid var(--accent); border-radius: 0; padding-left: 30px;">
-                <h3 style="color:var(--text); margin-bottom:15px;" data-key="serv-7-t">Capacitación en herramientas de análisis</h3>
-                <p style="font-size: 0.9rem; color: var(--text-dim);" data-key="serv-7-p">Transferencia estratégica de conocimiento analítico para empoderar a su equipo interno en la autogestión y explotación óptima de sus ecosistemas de datos.</p>
             </div>
         </div>
     </section>
@@ -357,7 +348,7 @@
                 <div class="calc-result">
                     <span data-key="res-label" style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; letter-spacing: 1px;">Pérdida por Baja Madurez Analítica</span>
                     <div id="v-leak" style="font-size:3.5rem; font-weight:900; margin:15px 0; color:var(--accent);">$150,000</div>
-                    <p data-key="res-p" style="font-size:0.85rem; color:var(--text-dim)">Capital recuperable estimando una migración hacia sistemas centralizados de Business Intelligence.</p>
+                    <p data-key="res-p" style="font-size:0.85rem; color:var(--text-dim)">Capital recuperable estimando una migración hacia sistemas centralizados de Business Intelligence y AI.</p>
                 </div>
             </div>
 
@@ -388,7 +379,7 @@
     </section>
 
     <section id="contact" style="text-align:center; padding:100px 10%; background: var(--card-bg);">
-        <h2 class="fade-up" data-key="cta-h" style="font-size:3rem; margin-bottom:30px; letter-spacing: -1px;">Implemente Inteligencia de Negocios hoy.</h2>
+        <h2 class="fade-up" data-key="cta-h" style="font-size:3rem; margin-bottom:30px; letter-spacing: -1px;">Escale su Inteligencia de Negocios hoy.</h2>
         <div class="fade-up delay-1" style="margin-bottom: 40px;">
             <p data-key="phone-label" style="font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px;">Data Strategy Desk B2B</p>
             <a href="tel:+525519785802" style="display: inline-block; margin-top: 15px; font-size: 1.5rem; font-weight: 800; color: var(--accent); text-decoration: none; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px rgba(100,255,218,0.5)'" onmouseout="this.style.textShadow='none'">+52 55 1978 5802</a>
@@ -403,14 +394,14 @@
                 <p style="color: var(--text-dim); font-size: 0.85rem; max-width: 250px; line-height: 1.8;" data-key="footer-desc">Aceleramos su transición hacia la madurez analítica. Implementamos sistemas de inteligencia de negocios que eliminan la incertidumbre operativa.</p>
             </div>
             <div class="footer-col">
-                <h4 data-key="nav-what">DATA INTELLIGENCE</h4>
-                <a href="#services" data-key="serv-1-t">Dashboards y reportes ejecutivos</a>
+                <h4 data-key="nav-what">SOLUCIONES CORE</h4>
+                <a href="#services" data-key="serv-ai-t">AI Consulting & Algoritmos</a>
+                <a href="#services" data-key="serv-1-t">Dashboards y reportes</a>
                 <a href="#services" data-key="serv-2-t">Automatización de reportes</a>
-                <a href="#services" data-key="serv-3-t">Integración y limpieza de datos</a>
-                <a href="#services" data-key="serv-4-t">Modelado de datos y KPIs</a>
-                <a href="#services" data-key="serv-5-t">Forecasting y analítica de negocio</a>
-                <a href="#services" data-key="serv-6-t">Auditoría y mejora de BI</a>
-                <a href="#services" data-key="serv-7-t">Capacitación analítica</a>
+                <a href="#services" data-key="serv-3-t">Integración de datos</a>
+                <a href="#services" data-key="serv-4-t">Modelado de KPIs</a>
+                <a href="#services" data-key="serv-5-t">Forecasting predictivo</a>
+                <a href="#services" data-key="serv-6-t">Auditoría de BI</a>
             </div>
             <div class="footer-col">
                 <h4 data-key="nav-insights">MADUREZ ANALÍTICA</h4>
@@ -425,7 +416,7 @@
             </div>
         </div>
         <div style="text-align: center; color: var(--text-dim); font-size: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; letter-spacing: 1px;">
-            AXIOMA DATA SOLUTIONS &copy; 2026 | BUSINESS INTELLIGENCE
+            AXIOMA DATA SOLUTIONS &copy; 2026 | AI & BUSINESS INTELLIGENCE
         </div>
     </footer>
 
@@ -435,28 +426,29 @@
                 "nav-who": "QUIÉNES SOMOS", "nav-what": "QUÉ HACEMOS", "nav-insights": "MADUREZ ANALÍTICA", "nav-contact": "CONTACTO",
                 "mm-identidad": "Identidad Corporativa", "mm-integridad": "Integridad Estadística", "mm-vision": "Inteligencia de Negocios", 
                 "mm-liderazgo": "Estructura", "mm-equipo": "Liderazgo Estratégico", "mm-alianzas": "Ecosistema de Datos",
-                "mm-soluciones": "Data Intelligence Core", "mm-sectores": "Sectores de Enfoque", 
+                "mm-soluciones": "Soluciones Core & AI", "mm-sectores": "Sectores de Enfoque", 
                 "ind-1": "Fintech y servicios financieros", "ind-2": "Retail y e-commerce", "ind-3": "Consumo masivo", "ind-4": "Logística y transporte", "ind-5": "Energía", "ind-6": "Manufactura", "ind-7": "Inmobiliario y construcción", "ind-8": "Tecnología y SaaS",
                 "mm-herramientas": "Laboratorio de Diagnóstico",
                 "metric-1": "Trazabilidad de Datos", "metric-2": "Puntos Ciegos Operativos", "metric-3": "Visibilidad del Negocio",
-                "hero-title": "Data Intelligence e Inteligencia de Negocios.", 
-                "hero-p": "Elevamos la madurez analítica de su organización. Transformamos ecosistemas de datos en motores de inteligencia de negocios para una toma de decisiones con certeza matemática.",
+                "hero-title": "Data, Business Intelligence & AI Consulting.", 
+                "hero-p": "Elevamos la madurez analítica de su organización. Transformamos ecosistemas de datos en motores de Inteligencia Artificial y de Negocios para una toma de decisiones con certeza matemática.",
                 "btn-diag-hero": "Evaluar Madurez Analítica",
-                "mision-t": "Integridad Estadística", "mision-p": "Gobernamos la captura y limpieza de datos para asegurar que cada reporte de BI y modelo operativo esté respaldado por una realidad métrica absoluta.",
-                "vision-t": "Arquitectura Analítica", "vision-p": "Estandarizamos sus flujos de información en un ecosistema unificado, dotando a la alta dirección de una única fuente de verdad institucional.",
-                "anth-t": "Inteligencia de Negocios", "anth-p": "Aplicamos analítica avanzada sobre sus datos históricos para identificar fricciones y proyectar la estrategia de crecimiento más rentable.",
+                "mision-t": "Integridad Estadística", "mision-p": "Gobernamos la captura y limpieza de datos para asegurar que cada reporte de BI y modelo de Machine Learning esté respaldado por una realidad métrica absoluta.",
+                "vision-t": "Arquitectura Analítica", "vision-p": "Estandarizamos sus flujos de información en un ecosistema unificado, dotando a la alta dirección de una única fuente de verdad institucional lista para escalar.",
+                "anth-t": "Inteligencia de Negocios", "anth-p": "Aplicamos IA y analítica avanzada sobre sus datos históricos para identificar fricciones y proyectar la estrategia de crecimiento más rentable.",
                 "lab-desc": "Estimación rápida sobre el impacto de la fricción de datos en su organización.",
                 "diag-title": "Estimación de Fricción Operativa", "label-rev": "Facturación Anual (USD)", "label-err": "Estimación de Fricción Operativa (%)",
-                "res-label": "Pérdida por Baja Madurez Analítica", "res-p": "Capital recuperable estimando una migración hacia sistemas centralizados de Business Intelligence.",
+                "res-label": "Pérdida por Baja Madurez Analítica", "res-p": "Capital recuperable estimando una migración hacia sistemas centralizados de Business Intelligence y AI.",
                 "quiz-title": "Test de Madurez Analítica",
+                "serv-ai-t": "AI Consulting & Estrategia Algorítmica", "serv-ai-p": "Implementación de arquitecturas de Inteligencia Artificial corporativa. Desde modelos predictivos (Machine Learning) hasta automatización cognitiva e IA generativa, transformamos sus flujos de trabajo para escalar la eficiencia a niveles previamente inalcanzables.",
                 "serv-1-t": "Dashboards y reportes ejecutivos", "serv-1-p": "Visualización en tiempo real de métricas críticas y consolidadas para facilitar la toma de decisiones ágil y precisa en la alta dirección.",
                 "serv-2-t": "Automatización de reportes", "serv-2-p": "Eliminación de la intervención manual mediante el diseño de flujos de datos programados (ETL) que aseguran la disponibilidad continua de su información.",
                 "serv-3-t": "Integración y limpieza de datos", "serv-3-p": "Estructuración de bases de datos dispersas, corrigiendo anomalías para construir un repositorio centralizado, confiable y listo para análisis profundo.",
                 "serv-4-t": "Modelado de datos y KPIs", "serv-4-p": "Construcción de arquitecturas lógicas y definición de indicadores clave de rendimiento (KPIs) estrictamente alineados con sus objetivos de crecimiento.",
-                "serv-5-t": "Forecasting y analítica de negocio", "serv-5-p": "Generación de proyecciones estratégicas de alta fiabilidad, utilizando modelos predictivos basados en sus tendencias históricas y de mercado.",
-                "serv-6-t": "Auditoría y mejora de BI existente", "serv-6-p": "Diagnóstico técnico exhaustivo de su infraestructura analítica actual para resolver cuellos de botella y potenciar el rendimiento de su plataforma de BI.",
+                "serv-5-t": "Forecasting y analítica de negocio", "serv-5-p": "Generación de proyecciones estratégicas de alta fiabilidad, utilizando algoritmos predictivos basados en sus tendencias históricas y de mercado.",
+                "serv-6-t": "Auditoría y mejora de BI", "serv-6-p": "Diagnóstico técnico exhaustivo de su infraestructura analítica actual para resolver cuellos de botella y potenciar el rendimiento de su plataforma de BI.",
                 "serv-7-t": "Capacitación en herramientas de análisis", "serv-7-p": "Transferencia estratégica de conocimiento analítico para empoderar a su equipo interno en la autogestión y explotación óptima de sus ecosistemas de datos.",
-                "cta-h": "Implemente Inteligencia de Negocios hoy.", "btn-restart": "REINICIAR EVALUACIÓN",
+                "cta-h": "Escale su Inteligencia de Negocios hoy.", "btn-restart": "REINICIAR EVALUACIÓN",
                 "capture-title": "Recibir Reporte Ejecutivo", "btn-send-report": "Generar Diagnóstico", "cta-btn": "Contactar a Axioma",
                 "phone-label": "Data Strategy Desk B2B", "btn-diag": "Fricción vs Capital", "footer-desc": "Aceleramos su transición hacia la madurez analítica. Implementamos sistemas de inteligencia de negocios que eliminan la incertidumbre operativa."
             },
@@ -464,28 +456,29 @@
                 "nav-who": "WHO WE ARE", "nav-what": "WHAT WE DO", "nav-insights": "ANALYTICAL MATURITY", "nav-contact": "CONTACT",
                 "mm-identidad": "Corporate Identity", "mm-integridad": "Statistical Integrity", "mm-vision": "Business Intelligence",
                 "mm-liderazgo": "Structure", "mm-equipo": "Strategic Leadership", "mm-alianzas": "Data Ecosystem",
-                "mm-soluciones": "Data Intelligence Core", "mm-sectores": "Focus Sectors", 
+                "mm-soluciones": "Core Solutions & AI", "mm-sectores": "Focus Sectors", 
                 "ind-1": "Fintech & Financial Services", "ind-2": "Retail & E-commerce", "ind-3": "FMCG / Consumer Goods", "ind-4": "Logistics & Transportation", "ind-5": "Energy", "ind-6": "Manufacturing", "ind-7": "Real Estate & Construction", "ind-8": "Technology & SaaS",
                 "mm-herramientas": "Diagnostic Lab",
                 "metric-1": "Data Traceability", "metric-2": "Operational Blind Spots", "metric-3": "Business Visibility",
-                "hero-title": "Data & Business Intelligence.", 
-                "hero-p": "We elevate your organization's analytical maturity. We transform data ecosystems into business intelligence engines for decision-making with mathematical certainty.",
+                "hero-title": "Data, Business Intelligence & AI Consulting.", 
+                "hero-p": "We elevate your organization's analytical maturity. We transform data ecosystems into Artificial Intelligence and Business Intelligence engines for decision-making with mathematical certainty.",
                 "btn-diag-hero": "Assess Analytical Maturity",
-                "mision-t": "Statistical Integrity", "mision-p": "We govern data capture and cleansing to ensure every BI report and operational model is backed by absolute metric reality.",
-                "vision-t": "Analytical Architecture", "vision-p": "We standardize your information flows into a unified ecosystem, providing top management with a single institutional source of truth.",
-                "anth-t": "Business Intelligence", "anth-p": "We apply advanced analytics to your historical data to identify frictions and project the most profitable growth strategy.",
+                "mision-t": "Statistical Integrity", "mision-p": "We govern data capture and cleansing to ensure every BI report and Machine Learning model is backed by absolute metric reality.",
+                "vision-t": "Analytical Architecture", "vision-p": "We standardize your information flows into a unified ecosystem, providing top management with a single institutional source of truth ready to scale.",
+                "anth-t": "Business Intelligence", "anth-p": "We apply AI and advanced analytics to your historical data to identify frictions and project the most profitable growth strategy.",
                 "lab-desc": "Quick estimation on the impact of data friction in your organization.",
                 "diag-title": "Estimated Operational Friction", "label-rev": "Annual Revenue (USD)", "label-err": "Estimated Operational Friction (%)",
-                "res-label": "Loss due to Low Analytical Maturity", "res-p": "Recoverable capital by estimating a migration towards centralized Business Intelligence systems.",
+                "res-label": "Loss due to Low Analytical Maturity", "res-p": "Recoverable capital by estimating a migration towards centralized Business Intelligence and AI systems.",
                 "quiz-title": "Analytical Maturity Test",
+                "serv-ai-t": "AI Consulting & Algorithmic Strategy", "serv-ai-p": "Implementation of corporate Artificial Intelligence architectures. From predictive models (Machine Learning) to cognitive automation and generative AI, we transform your workflows to scale efficiency to previously unattainable levels.",
                 "serv-1-t": "Executive Dashboards & Reporting", "serv-1-p": "Real-time visualization of critical and consolidated metrics to facilitate agile and precise decision-making for top management.",
                 "serv-2-t": "Report Automation", "serv-2-p": "Elimination of manual intervention by designing scheduled data flows (ETL) that ensure the continuous availability of your information.",
                 "serv-3-t": "Data Integration & Cleansing", "serv-3-p": "Structuring of dispersed databases, correcting anomalies to build a centralized, reliable repository ready for deep analysis.",
                 "serv-4-t": "Data Modeling & KPIs", "serv-4-p": "Construction of logical architectures and definition of Key Performance Indicators (KPIs) strictly aligned with your growth objectives.",
-                "serv-5-t": "Forecasting & Business Analytics", "serv-5-p": "Generation of highly reliable strategic projections, using predictive models based on your historical and market trends.",
+                "serv-5-t": "Forecasting & Business Analytics", "serv-5-p": "Generation of highly reliable strategic projections, using predictive algorithms based on your historical and market trends.",
                 "serv-6-t": "Existing BI Audit & Enhancement", "serv-6-p": "Exhaustive technical diagnostic of your current analytical infrastructure to resolve bottlenecks and boost your BI platform's performance.",
                 "serv-7-t": "Analytics Tools Training", "serv-7-p": "Strategic transfer of analytical knowledge to empower your internal team in the self-management and optimal exploitation of your data ecosystems.",
-                "cta-h": "Implement Business Intelligence today.", "btn-restart": "RESTART ASSESSMENT",
+                "cta-h": "Scale your Business Intelligence today.", "btn-restart": "RESTART ASSESSMENT",
                 "capture-title": "Receive Executive Report", "btn-send-report": "Generate Diagnostic", "cta-btn": "Contact Axioma",
                 "phone-label": "B2B Data Strategy Desk", "btn-diag": "Friction vs Capital", "footer-desc": "We accelerate your transition towards analytical maturity. We implement business intelligence systems that eliminate operational uncertainty."
             }
@@ -527,12 +520,12 @@
         const quizData = {
             es: [
                 { q: "¿Cómo se consolida la información de inteligencia de negocios para las revisiones directivas?", a: ["Exportaciones manuales de diferentes sistemas unificadas en hojas de cálculo", "Tableros conectados a bases de datos, pero requieren conciliación manual", "Data warehouse centralizado con flujos automatizados y validación", "Ecosistema de datos gobernado con trazabilidad absoluta"] },
-                { q: "¿Cuál es el nivel de profundidad analítica en sus modelos de negocio y costos?", a: ["Análisis descriptivo retrospectivo (qué sucedió en el cierre)", "Análisis diagnóstico con KPIs estandarizados (variaciones vs. presupuesto)", "Modelado predictivo basado en series de tiempo y variables", "Modelado prescriptivo con simulación de escenarios"] },
+                { q: "¿Cuál es el nivel de profundidad analítica en sus modelos de negocio y costos?", a: ["Análisis descriptivo retrospectivo (qué sucedió en el cierre)", "Análisis diagnóstico con KPIs estandarizados (variaciones vs. presupuesto)", "Modelado predictivo basado en series de tiempo y algoritmos", "Modelado prescriptivo con simulación de escenarios mediante IA"] },
                 { q: "¿Cuál es la latencia entre un evento operativo y su visualización en BI?", a: ["Cierre mensual: reportes consolidados semanas después", "Cierre semanal: actualización de tableros al final de la semana", "Actualización diaria (T+1): infraestructura sincronizada", "Tiempo real o micro-batch: visibilidad inmediata del impacto"] }
             ],
             en: [
                 { q: "How is business intelligence information consolidated for board reviews?", a: ["Manual exports from different systems unified in spreadsheets", "Dashboards connected to databases, but require manual reconciliation", "Centralized data warehouse with automated flows and cross-validation", "Governed data ecosystem with absolute traceability"] },
-                { q: "What is the level of analytical depth in your business and cost models?", a: ["Retrospective descriptive analysis (what happened at close)", "Diagnostic analysis with standardized KPIs (variances vs. budget)", "Predictive modeling based on time series and variables", "Prescriptive modeling with scenario simulation"] },
+                { q: "What is the level of analytical depth in your business and cost models?", a: ["Retrospective descriptive analysis (what happened at close)", "Diagnostic analysis with standardized KPIs (variances vs. budget)", "Predictive modeling based on time series and algorithms", "Prescriptive modeling with AI scenario simulation"] },
                 { q: "What is the latency between an operational event and its visualization in BI?", a: ["Monthly close: reports consolidated weeks after the event", "Weekly close: dashboards updated at the end of the week", "Daily update (T+1): synchronized infrastructure", "Real-time or micro-batch: immediate visibility of impact"] }
             ]
         };
@@ -558,14 +551,14 @@
             
             const resultsData = {
                 es: {
-                    L1: { t: "Nivel 1: Infraestructura Fragmentada", d: "Riesgo operativo significativo. Carece de respaldo de datos unificado, lo que genera alta fricción y debilita la inteligencia de negocios.", s: "Recomendación: Ejecutar Auditoría de Sistemas de Data Intelligence." },
+                    L1: { t: "Nivel 1: Infraestructura Fragmentada", d: "Riesgo operativo significativo. Carece de respaldo de datos unificado, lo que genera alta fricción y debilita la inteligencia de negocios.", s: "Recomendación: Ejecutar Auditoría de Sistemas de BI." },
                     L2: { t: "Nivel 2: Madurez Transicional", d: "Captura valor de los datos, pero procesos manuales y silos departamentales limitan el potencial del Business Intelligence.", s: "Recomendación: Implementar Protocolos de Gobierno de Datos." },
-                    L3: { t: "Nivel 3: Madurez Analítica Avanzada", d: "Base arquitectónica sólida. El siguiente paso es capitalizar esta infraestructura mediante análisis predictivo y forecasting.", s: "Recomendación: Desarrollar Analítica de Negocio Avanzada." }
+                    L3: { t: "Nivel 3: Madurez Analítica Avanzada", d: "Base arquitectónica sólida. El siguiente paso es capitalizar esta infraestructura mediante análisis predictivo y Machine Learning.", s: "Recomendación: Desarrollar Estrategia Algorítmica y AI." }
                 },
                 en: {
-                    L1: { t: "Level 1: Fragmented Infrastructure", d: "Significant operational risk. Lacks unified data backing, generating high friction and weakening business intelligence.", s: "Recommendation: Execute Data Intelligence Systems Audit." },
+                    L1: { t: "Level 1: Fragmented Infrastructure", d: "Significant operational risk. Lacks unified data backing, generating high friction and weakening business intelligence.", s: "Recommendation: Execute BI Systems Audit." },
                     L2: { t: "Level 2: Transitional Maturity", d: "Captures value, but manual processes and departmental silos limit Business Intelligence potential.", s: "Recommendation: Implement Data Governance Protocols." },
-                    L3: { t: "Level 3: Advanced Analytical Maturity", d: "Solid architectural base. The next step is capitalizing on this infrastructure through predictive analysis and forecasting.", s: "Recommendation: Develop Advanced Business Analytics." }
+                    L3: { t: "Level 3: Advanced Analytical Maturity", d: "Solid architectural base. The next step is capitalizing on this infrastructure through predictive analysis and Machine Learning.", s: "Recommendation: Develop Algorithmic Strategy and AI." }
                 }
             };
             const res = resultsData[currentLang][key];
